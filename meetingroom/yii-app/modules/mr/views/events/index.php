@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Room;
+use app\modules\mr\models\Room;
 use yii\web\JsExpression;
 use yii\helpers\Url;
 $this->title = 'Event Rooms';
@@ -124,7 +124,7 @@ $this->title = 'Event Rooms';
         "),
     ],
     // 'events' => $events,
-    'events' => Url::to(['/events/jsoncalendar'])
+    'events' => Url::to(['/mr/events/jsoncalendar'])
 ]);
 ?>
             </div>
@@ -162,7 +162,7 @@ $js = <<< JS
         var id = event.id;
         $.ajax({
         type: "get",
-        url: "index.php?r=events/update",
+        url: "index.php?r=mr/events/update",
         data: {id:id},
         dataType: "json",
         success: function (response) {
@@ -180,7 +180,7 @@ $js = <<< JS
     function modalShow(start,end){
       $.ajax({
         type: "get",
-        url: "index.php?r=events/create",
+        url: "index.php?r=mr/events/create",
         data: {start:start,end:end},
         dataType: "json",
         success: function (response) {
@@ -200,7 +200,7 @@ $js = <<< JS
         var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
             $.ajax({
             type: "post",
-            url: "index.php?r=events/event-update",
+            url: "index.php?r=mr/events/event-update",
             data: {
                 id:id,
                 start:start,

@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Room;
+use app\modules\mr\models\Room;
 use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 use yii\bootstrap4\ActiveForm;

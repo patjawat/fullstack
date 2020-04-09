@@ -1,9 +1,9 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\mr\controllers;
 
-use app\models\Events;
-use app\models\EventsSearch;
+use app\modules\mr\models\Events;
+use app\modules\mr\models\EventsSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;

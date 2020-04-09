@@ -48,5 +48,6 @@ $modules['gridview'] = ['class' => '\kartik\grid\Module']; //system
 $modules['admin'] = ['class' => 'mdm\admin\Module'];// จัดการระบ
 $modules['gridviewKrajee'] = ['class' => '\kartik\grid\Module']; //system
 $modules['usermanager'] = ['class' => 'app\modules\usermanager\Usermanager']; //จัดการผู้ใช้งานระบบ
+$modules['mr'] = ['class' => 'app\modules\mr\Mr']; //จัดการผู้ใช้งานระบบ
 
 return $modules;

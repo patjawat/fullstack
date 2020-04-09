@@ -1,10 +1,10 @@
 <?php
 
-namespace app\controllers;
+namespace app\modules\mr\controllers;
 
 use Yii;
-use app\models\Room;
-use app\models\RoomSearch;
+use app\modules\mr\models\Room;
+use app\modules\mr\models\RoomSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
