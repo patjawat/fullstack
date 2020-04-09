@@ -1,6 +1,7 @@
 <?php
 use yii\helpers\Html;
 ?>
+
 <form class="form-inline mb-3">
     <div class="form-group mr-3" style="width:40%">
         <label for="inputPassword2" class="sr-only">Password</label>
