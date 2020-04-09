@@ -5,62 +5,6 @@ use yii\web\JsExpression;
 use yii\helpers\Url;
 $this->title = 'Event Rooms';
 ?>
-<?php
-$start_date = '2020-04-08';
-$end_date = '2020-04-08';
-$start_time = '13:00:00';
-$end_time = '13:30:00';
-$start = date('Y-m-d\TH:i:s\Z',strtotime($start_date.' '.$start_time));
-$end = date('Y-m-d\TH:i:s\Z',strtotime($end_date.' '.$end_time));
-echo $start.'</br>';
-echo $end.'</br>';
-?>
-<?php
-$events = [
-
-    [
-        'id' => uniqid(),
-        'title' => 'Appointment #' . rand(1, 999),
-        'start' => '2020-04-17T12:30:00',
-        'end' => '2020-04-17T13:30:00',
-        'editable' => true,
-        'startEditable' => true,
-        'durationEditable' => true,
-    ],
-    [
-        'id' => uniqid(),
-        'title' => 'Appointment #' . rand(1, 999),
-        'start' => '2020-04-17T15:30:00',
-        'end' => '2020-04-17T19:30:00',
-        'overlap' => false, // Overlap is default true
-        'editable' => true,
-        'startEditable' => true,
-        'durationEditable' => true,
-    ],
-    // Only duration editable
-    [
-        'id' => uniqid(),
-        'title' => 'ทดสอบ #' . rand(1, 999),
-        'start' => '2020-04-16T11:00:00',
-        'end' => '2020-04-16T11:30:00',
-        'startEditable' => true,
-        'durationEditable' => true,
-    ], [
-        'id' => uniqid(),
-        'title' => 'patjawat #' . rand(1, 999),
-        'start' => $start,
-        'end' => $end,
-        'backgroundColor' => '#f56954', //red
-        'borderColor' => '#f56954', //red
-        'textColor' => '#fff', //red
-        'editable' => true,
-        'droppable' => true,
-        'startEditable' => true, // ใช้เม้าเลื่อไปวันอื่นได้
-        'durationEditable' => true,
-    ],
-];
-?>
-
 
 <div class="row">
     <div class="col-md-3">
@@ -133,13 +77,10 @@ $events = [
         'selectable' => true,
         'selectHelper' => true,
         'editable' => true,
-        // 'startEditable' => true,
-        // 'durationEditable' => true,
-        // 'droppable' => true,
         'defaultView' => 'month',
         'eventResize' => new JsExpression("
                 function(event, delta, revertFunc, jsEvent, ui, view) {
-                    console.log(event);
+                    console.log('eventResize'+event);
                 }
             "),
         'select' => new JSExpression("function(start, end, allDay,view,date,calEvent) {
@@ -156,7 +97,7 @@ $events = [
         }"),
         'eventClick' => new JsExpression("
                 function(event, delta, revertFunc, jsEvent, ui, view) {
-                    console.log(event);
+                    console.log('eventClick'+event);
                 }
             "),
         //     'dayClick' => new JsExpression("
@@ -165,13 +106,17 @@ $events = [
         //     }
         // "),
         'eventDragStop' => new JsExpression("
-            function(event, delta, revertFunc, jsEvent, ui, view) {
-                console.log(event);
+            function(start,end,event, delta, revertFunc, jsEvent, ui, view,calEvent) {
+                // console.log('eventDragStop'+event);
+                // var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+                // var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
+                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
+                console.log(start)
             }
         "),
         'eventReceive' => new JsExpression("
             function(event, delta, revertFunc, jsEvent, ui, view) {
-                console.log(event);
+                console.log('eventReceive'+event);
             }
         "),
         //     'eventMouseover' => new JsExpression("
