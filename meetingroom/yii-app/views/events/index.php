@@ -101,7 +101,8 @@ $this->title = 'Event Rooms';
         'eventClick' => new JsExpression("
                 function(event, delta, revertFunc, jsEvent, ui, view) {
                     // คลิก update ชื่อเรื่องกับเนื้อหา
-                    console.log('eventClick'+event);
+                    // console.log('eventClick'+event);
+                    update(event)
                 }
         "),
         'eventDragStop' => new JsExpression("
@@ -157,7 +158,25 @@ $js = <<< JS
 
     ini_events($('#external-events div.external-event'));
 
-
+    function update(event){
+        var id = event.id;
+        $.ajax({
+        type: "get",
+        url: "index.php?r=events/update",
+        data: {id:id},
+        dataType: "json",
+        success: function (response) {
+          $('#main-modal').modal('show');
+            $(".modal-dialog").removeClass('modal-lg modal-md modal-sm');
+            $('.modal-content').addClass('card-outline card-primary');
+            $(".modal-dialog").addClass('modal-md');
+            $('#main-modal-label').html(response.title);
+            $('.modal-body').html(response.content);
+            $('.modal-footer').html(response.footer);
+        }
+      });
+    }
+    
     function modalShow(start,end){
       $.ajax({
         type: "get",
