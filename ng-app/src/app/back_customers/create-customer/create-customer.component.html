@@ -1,0 +1,52 @@
+<!-- <h3>Create Customer</h3>
+<div [hidden]="submitted" style="width: 300px;">
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" required [(ngModel)]="customer.name" name="name">
+    </div>
+ 
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input type="text" class="form-control" id="qty" required [(ngModel)]="customer.qty" name="qty">
+    </div>
+ 
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+ 
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  <button class="btn btn-success" (click)="newCustomer()">Add</button>
+</div>
+<app-customers-list [customers]='customers'></app-customers-list> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>grokonez</h2>
+      <h4>Reactive Form Validation</h4>
+ 
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>name</label>
+          <input type="text" class="form-control" formControlName="name" [ngClass]="{'is-invalid': submitted && f.name.errors}" />
+          <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">>> required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>qty</label>
+          <input type="qty" class="form-control" formControlName="qty" [ngClass]="{'is-invalid':submitted && f.qty.errors}" />
+          <div *ngIf="submitted && f.qty.errors" class="invalid-feedback">
+            <div *ngIf="f.qty.errors.required">>> required</div>
+            <div *ngIf="f.qty.errors.minlength">>> must be at least 6 characters</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

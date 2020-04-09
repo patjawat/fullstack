@@ -1,0 +1,45 @@
+
+<div class="wrapper" style="margin-top: 5%;">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+            <!-- Icon -->
+            <div class=" first">
+              <i class="fas fa-fingerprint" style="font-size: 50px;margin-top: 20px;"></i>
+              <!-- <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" /> -->
+            </div>
+      <h2 class="active"> Sign In </h2>
+      <h2 class="inactive underlineHover">Sign Up </h2>
+  
+
+  
+      <!-- Login Form -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+        <input type="text" class="form-control" formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors}" />
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+          <div *ngIf="f.username.errors.required">>> required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}" />
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">>> required</div>
+          <div *ngIf="f.password.errors.minlength">>> must be at least 6 characters</div>
+        </div>
+      </div>
+
+        <!-- <input type="submit" class=" fourth" value="Log In"> -->
+        <div id="formFooter">
+          <button type="submit" class="btn btn-info">LOGIN</button>
+          <a class="nav-link" routerLink="/users/register">Register</a>
+        </div>
+        <h3>{{massage | json}}</h3>
+      </form>
+  
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Forgot Password?</a>
+      </div>
+  
+    </div>

@@ -1,0 +1,38 @@
+<div class="container">
+  <h1 class="text-center">Register</h1>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>ชื่อ</label>
+      <input type="text" class="form-control"  formControlName="firstName" [ngClass]="{'is-invalid': submitted && f.firstName.errors}">
+      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+        <div *ngIf="f.firstName.errors.required">** ต้องระบบชื่อ</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>นามสกุล</label>
+      <input type="text" class="form-control"  formControlName="lastName" [ngClass]="{'is-invalid': submitted && f.lastName.errors}">
+      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+        <div *ngIf="f.lastName.errors.required">** ต้องระบบชื่อ</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-control"  formControlName="username" [ngClass]="{'is-invalid': submitted && f.username.errors}">
+      <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <div *ngIf="f.username.errors.required">** ต้องระบบชื่อเข้าใช้งาน</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid': submitted && f.password.errors}">
+      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <div *ngIf="f.username.errors.required">** ต้องกำหนดรหัสผ่าน</div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
