@@ -80,9 +80,11 @@ $this->title = 'Event Rooms';
         'defaultView' => 'month',
         'eventResize' => new JsExpression("
                 function(event, delta, revertFunc, jsEvent, ui, view) {
+                    //ย่อขยายเวลา
                     console.log('eventResize'+event);
+                    getUpdateEventDrop(event)
                 }
-            "),
+        "),
         'select' => new JSExpression("function(start, end, allDay,view,date,calEvent) {
             if (view.name == 'day') return;
                 view.calendar.gotoDate(date);
@@ -94,46 +96,34 @@ $this->title = 'Event Rooms';
                 if(view.name =='agendaDay'){
                     modalShow(start,end)
                 }
-        }"),
+        }
+        "),
         'eventClick' => new JsExpression("
                 function(event, delta, revertFunc, jsEvent, ui, view) {
+                    // คลิก update ชื่อเรื่องกับเนื้อหา
                     console.log('eventClick'+event);
                 }
-            "),
-        //     'dayClick' => new JsExpression("
-        //     function (date, allDay, jsEvent, view) {
-        //         alert(date);
-        //     }
-        // "),
+        "),
         'eventDragStop' => new JsExpression("
-            function(start,end,event, delta, revertFunc, jsEvent, ui, view,calEvent) {
-                // console.log('eventDragStop'+event);
-                // var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-                // var end = $.fullCalendar.formatDate(end, 'Y-MM-DD HH:mm:ss');
-                var start = $.fullCalendar.formatDate(start, 'Y-MM-DD HH:mm:ss');
-                console.log(start)
-            }
-        "),
-        'eventReceive' => new JsExpression("
             function(event, delta, revertFunc, jsEvent, ui, view) {
-                console.log('eventReceive'+event);
+                var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
+                var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+                // console.log('Seart : '+start+' End : '+end)
+        }
+        "),
+        'eventDrop' => new JsExpression("
+            function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+                    getUpdateEventDrop(event)                
             }
         "),
-        //     'eventMouseover' => new JsExpression("
-        //         function(event, delta, revertFunc, jsEvent, ui, view) {
-        //             console.log(event.id);
-        //             console.log(delta);
-        //         }
-        //     "),
-        //     'eventMouseout' => new JsExpression("
-        //     function(event, delta, revertFunc, jsEvent, ui, view) {
-        //         console.log(event.id);
-        //         console.log(delta);
-        //     }
-        // "),
+        'eventmoveDates' => new JsExpression("
+            function(event, delta, revertFunc, jsEvent, ui, view) {
+                console.log('eventReceivexx'+event);
+            }
+        "),
     ],
     // 'events' => $events,
-    'events' => Url::to(['/event-room/jsoncalendar'])
+    'events' => Url::to(['/events/jsoncalendar'])
 ]);
 ?>
             </div>
@@ -171,7 +161,7 @@ $js = <<< JS
     function modalShow(start,end){
       $.ajax({
         type: "get",
-        url: "index.php?r=event-room/create",
+        url: "index.php?r=events/create",
         data: {start:start,end:end},
         dataType: "json",
         success: function (response) {
@@ -184,6 +174,25 @@ $js = <<< JS
             $('.modal-footer').html(response.footer);
         }
       });
+    }
+    function getUpdateEventDrop(event){
+        var id = event.id;
+        var start = $.fullCalendar.formatDate(event.start, 'Y-MM-DD HH:mm:ss');
+        var end = $.fullCalendar.formatDate(event.end, 'Y-MM-DD HH:mm:ss');
+            $.ajax({
+            type: "post",
+            url: "index.php?r=events/event-update",
+            data: {
+                id:id,
+                start:start,
+                end:end
+                },
+            dataType: "json",
+            success: function (response) {
+            
+            }
+        });
+    // console.log(event)
 
     }
 

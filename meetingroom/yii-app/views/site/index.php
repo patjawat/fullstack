@@ -7,7 +7,7 @@ use yii\helpers\Html;
         <label for="inputPassword2" class="sr-only">Password</label>
         <input type="text" class="form-control" placeholder="ค้นหา .." style="width:100%">
     </div>
-    <?=Html::a('<i class="fas fa-plus"></i> จองห้องประชุม',['/event-room'],['class'=>'btn btn-success'])?>
+    <?=Html::a('<i class="fas fa-plus"></i> จองห้องประชุม',['/events'],['class'=>'btn btn-success'])?>
 </form>
 
 <?php for ($x = 0; $x <= 10; $x++):?>

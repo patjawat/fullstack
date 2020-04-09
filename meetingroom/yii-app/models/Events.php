@@ -8,14 +8,14 @@ use yii\behaviors\BlameableBehavior;
 use yii\db\Expression;
 use \yii\db\ActiveRecord;
 
-class EventRoom extends \yii\db\ActiveRecord
+class Events extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'event_room';
+        return 'events';
     }
 
     /**
@@ -35,7 +35,7 @@ class EventRoom extends \yii\db\ActiveRecord
             [['title', 'body', 'room_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
             [['body'], 'string'],
             [['room_id', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at', 'date_start', 'date_end'], 'safe'],
+            [['created_at', 'updated_at', 'start', 'end'], 'safe'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -50,8 +50,8 @@ class EventRoom extends \yii\db\ActiveRecord
             'title' => 'ชื่อเรื่อง',
             'body' => 'เนื้อหา',
             'room_id' => 'ห้องประชุม',
-            'date_start' => 'เริ่ม',
-            'date_end' => 'สิ้นสุด',
+            'start' => 'เริ่ม',
+            'end' => 'สิ้นสุด',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

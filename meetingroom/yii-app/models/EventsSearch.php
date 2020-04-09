@@ -4,12 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\EventRoom;
+use app\models\Events;
 
 /**
- * EventRoomSearch represents the model behind the search form of `app\models\EventRoom`.
+ * EventsSearch represents the model behind the search form of `app\models\Events`.
  */
-class EventRoomSearch extends EventRoom
+class EventsSearch extends Events
 {
     /**
      * {@inheritdoc}
@@ -18,7 +18,7 @@ class EventRoomSearch extends EventRoom
     {
         return [
             [['id', 'room_id', 'created_by', 'updated_by'], 'integer'],
-            [['date_start', 'created_at', 'updated_at'], 'safe'],
+            [['start','end','created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class EventRoomSearch extends EventRoom
      */
     public function search($params)
     {
-        $query = EventRoom::find();
+        $query = Events::find();
 
         // add conditions that should always apply here
 
@@ -60,8 +60,8 @@ class EventRoomSearch extends EventRoom
         $query->andFilterWhere([
             'id' => $this->id,
             'room_id' => $this->room_id,
-            'date_start' => $this->date_start,
-            'date_end' => $this->date_end,
+            'start' => $this->start,
+            'end' => $this->end,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,

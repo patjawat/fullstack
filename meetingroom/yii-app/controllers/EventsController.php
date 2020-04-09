@@ -2,8 +2,8 @@
 
 namespace app\controllers;
 
-use app\models\EventRoom;
-use app\models\EventRoomSearch;
+use app\models\Events;
+use app\models\EventsSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -11,9 +11,9 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
- * EventRoomController implements the CRUD actions for EventRoom model.
+ * EventsController implements the CRUD actions for Events model.
  */
-class EventRoomController extends Controller
+class EventsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +31,12 @@ class EventRoomController extends Controller
     }
 
     /**
-     * Lists all EventRoom models.
+     * Lists all Events models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EventRoomSearch();
+        $searchModel = new EventsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +46,7 @@ class EventRoomController extends Controller
     }
 
     /**
-     * Displays a single EventRoom model.
+     * Displays a single Events model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -59,13 +59,13 @@ class EventRoomController extends Controller
     }
 
     /**
-     * Creates a new EventRoom model.
+     * Creates a new Events model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new EventRoom();
+        $model = new Events();
         $start = Yii::$app->request->get('start');
         $end = Yii::$app->request->get('end');
         $thStart = Yii::$app->thaiFormatter->asDate($start, 'php:d/m/Y H:i:s');
@@ -73,8 +73,8 @@ class EventRoomController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            $model->date_start = $start;
-            $model->date_end = $end;
+            $model->start = $start;
+            $model->end = $end;
             $model->save(false);
             return $this->redirect(['index']);
 
@@ -96,7 +96,7 @@ class EventRoomController extends Controller
     }
 
     /**
-     * Updates an existing EventRoom model.
+     * Updates an existing Events model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -116,7 +116,7 @@ class EventRoomController extends Controller
     }
 
     /**
-     * Deletes an existing EventRoom model.
+     * Deletes an existing Events model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -131,7 +131,7 @@ class EventRoomController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = EventRoom::findOne($id)) !== null) {
+        if (($model = Events::findOne($id)) !== null) {
             return $model;
         }
 
@@ -142,14 +142,14 @@ class EventRoomController extends Controller
     {
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $models = EventRoom::find()->all();
+        $models = Events::find()->all();
         $events = [];
         foreach ($models as $model) {
             $events[] = [
                 'id' => $model->id,
                 'title' => $model->title,
-                'start' => date('Y-m-d\TH:i:s\Z', strtotime($model->date_start)),
-                'end' => date('Y-m-d\TH:i:s\Z', strtotime($model->date_end)),
+                'start' => date('Y-m-d\TH:i:s\Z', strtotime($model->start)),
+                'end' => date('Y-m-d\TH:i:s\Z', strtotime($model->end)),
                 'backgroundColor' => '#f56954', //red
                 'borderColor' => '#f56954', //red
                 'textColor' => '#fff', //red
@@ -160,6 +160,25 @@ class EventRoomController extends Controller
             ];
         }
         return $events;
+    }
+
+    public function actionEventUpdate()
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $event = Yii::$app->request->post();
+        $id = $event['id'];
+        $model = $this->findModel($id);
+        $model->start = $event['start'];
+        $model->end = $event['end'];
+        return $model->save();
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
+
+        // return $this->render('update', [
+        //     'model' => $model,
+        // ]);
     }
 
 }
