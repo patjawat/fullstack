@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 ?>
+
 <div class="row" style="height: 554px;">
     <div class="col-6">
         <div class="card text-left">
@@ -9,7 +10,7 @@ use yii\helpers\Html;
             <div class="card-body">
                 <h4 class="card-title">ระบบจองห้องประชุม</h4>
                 <p class="card-text">
-                <?=Html::a('เลือก',['/mr'], [])?>
+                    <?=Html::a('เลือก',['/mr'], [])?>
                 </p>
             </div>
         </div>

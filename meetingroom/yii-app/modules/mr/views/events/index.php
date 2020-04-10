@@ -169,7 +169,7 @@ $js = <<< JS
           $('#main-modal').modal('show');
             $(".modal-dialog").removeClass('modal-lg modal-md modal-sm');
             $('.modal-content').addClass('card-outline card-primary');
-            $(".modal-dialog").addClass('modal-md');
+            $(".modal-dialog").addClass('modal-lg');
             $('#main-modal-label').html(response.title);
             $('.modal-body').html(response.content);
             $('.modal-footer').html(response.footer);
@@ -187,7 +187,7 @@ $js = <<< JS
           $('#main-modal').modal('show');
             $(".modal-dialog").removeClass('modal-lg modal-md modal-sm');
             $('.modal-content').addClass('card-outline card-primary');
-            $(".modal-dialog").addClass('modal-md');
+            $(".modal-dialog").addClass('modal-lg');
             $('#main-modal-label').html(response.title);
             $('.modal-body').html(response.content);
             $('.modal-footer').html(response.footer);

@@ -20,5 +20,11 @@ class Mr extends \yii\base\Module
         parent::init();
 
         // custom initialization code goes here
+        \Yii::configure($this, require __DIR__ . '/config.php');
+        $this->setAliases([
+            '@MY-MODULE-assets' => __DIR__ . '/assets'
+        ]);
     }
+
+    
 }

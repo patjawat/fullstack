@@ -6,6 +6,7 @@ use app\modules\mr\models\Events;
 use app\modules\mr\models\EventsSearch;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -86,7 +87,8 @@ class EventsController extends Controller
                 'content' => $this->renderAjax('create', [
                     'model' => $model,
                 ]),
-                'footer' => 'footer',
+                'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success','onclick' =>'return saveMeetingRoom()']),
             ];
         } else {
             return $this->render('create', [
@@ -112,11 +114,12 @@ class EventsController extends Controller
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['title' => 'จองห้องประชุม วันที่ : ',
+            return ['title' => 'แก้ไขห้องประชุม : ' . $model->room->name,
                 'content' => $this->renderAjax('update', [
                     'model' => $model,
                 ]),
-                'footer' => 'footer',
+                'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success','onclick' =>'return saveMeetingRoom()']),
             ];
         } else {
             return $this->render('update', [
@@ -125,13 +128,6 @@ class EventsController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Events model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -182,13 +178,6 @@ class EventsController extends Controller
         $model->end = $event['end'];
         return $model->save();
 
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
-        //     return $this->redirect(['view', 'id' => $model->id]);
-        // }
-
-        // return $this->render('update', [
-        //     'model' => $model,
-        // ]);
     }
 
 }

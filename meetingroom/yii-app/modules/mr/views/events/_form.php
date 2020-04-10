@@ -5,47 +5,43 @@ use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 use yii\bootstrap4\ActiveForm;
 use yii\helpers\ArrayHelper;
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
-/* @var $this yii\web\View */
-/* @var $model app\models\EventRoom */
-/* @var $form yii\widgets\ActiveForm */
+use yii\helpers\Url;
+use mihaildev\elfinder\InputFile;
+use mihaildev\elfinder\ElFinder;
+use yii\web\JsExpression;
+$this->registerJS($this->render('../../web/js/mrScript.js'));
 ?>
 
 <div class="event-room-form">
 
-    <?php $form = ActiveForm::begin(['id' => 'event-room-form']);?>
+    <?php $form = ActiveForm::begin(['id' => 'events-form']);?>
 
-    <?=$form->field($model, 'room_id')->widget(Select2::classname(), [
+
+    <div class="row">
+        <div class="col-4">
+            <?=$form->field($model, 'room_id')->widget(Select2::classname(), [
     'data' => ArrayHelper::map(Room::find()->all(), 'id', 'name'),
     'options' => ['placeholder' => 'เลือกห้องประชุม'],
     'pluginOptions' => [
         'allowClear' => true,
     ],
 ]);?>
-    <div class="row">
-        <div class="col-12">
-            <?php
-
-// echo $form->field($model, 'date_start')->widget(DateControl::classname(), [
-//     'type' => DateControl::FORMAT_DATETIME,
-//     'language' => 'th',
-// ]);
-// echo $form->field($model, 'date_end')->widget(DateControl::classname(), [
-//     'type' => DateControl::FORMAT_DATETIME,
-//     'language' => 'th',
-// ]);
-
-?>
+        </div>
+        <div class="col-8">
+            <?=$form->field($model, 'title')->textInput()?>
         </div>
 
     </div>
 
-    <?=$form->field($model, 'title')->textInput()?>
-    <?=$form->field($model, 'body')->textArea(['rows' => 5])?>
-
-
+    <?php
+    echo $form->field($model, 'body')->widget(CKEditor::className(),[
+        'editorOptions' => ElFinder::ckeditorOptions('mr/elfinder',[
+        ]),
+    ])->label(false)?>
     <div class="form-group">
-        <?=Html::submitButton('Save', ['class' => 'btn btn-success'])?>
+        <?php //Html::submitButton('Save', ['class' => 'btn btn-success'])?>
     </div>
 
     <?php ActiveForm::end();?>
@@ -55,28 +51,28 @@ use yii\helpers\Html;
 <?php
 $js = <<< JS
 
-$('body').on('beforeSubmit', 'form#event-room-form', function () {
-     var form = $(this);
-     // return false if form still have some validation errors
-     if (form.find('.has-error').length) {
-          return false;
-     }
-     // submit form
-     $.ajax({
-          url: form.attr('action'),
-          type: 'post',
-          data: form.serialize(),
-          success: function (response) {
-              console.log(response);
-               if(response){
-                closeModal()
-               }else{
-                alert(response)
-               }
-          }
-     });
-     return false;
-});
+// $('body').on('beforeSubmit', 'form#events-form', function () {
+//      var form = $(this);
+//      // return false if form still have some validation errors
+//      if (form.find('.has-error').length) {
+//           return false;
+//      }
+//      // submit form
+//      $.ajax({
+//           url: form.attr('action'),
+//           type: 'post',
+//           data: form.serialize(),
+//           success: function (response) {
+//               console.log(response);
+//                if(response){
+//                 closeModal()
+//                }else{
+//                 alert(response)
+//                }
+//           }
+//      });
+//      return false;
+// });
 
 JS;
 $this->registerJS($js);

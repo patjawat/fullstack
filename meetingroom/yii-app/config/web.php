@@ -85,6 +85,7 @@ $config = [
             'api/*',
         ],
     ],
+    
     'params' => $params,
 ];
 
