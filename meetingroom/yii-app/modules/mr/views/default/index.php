@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use app\modules\mr\models\Events;
+
 ?>
 
 <form class="form-inline mb-3">
@@ -10,13 +12,13 @@ use yii\helpers\Html;
     <?=Html::a('<i class="fas fa-plus"></i> จองห้องประชุม',['/mr/events'],['class'=>'btn btn-success'])?>
 </form>
 
-<?php for ($x = 0; $x <= 10; $x++):?>
+<?php foreach (Events::find()->all() as $model):?>
 <div class="card card-widget shadow mb-3 bg-white rounded collapse-card collapsed-card">
     <div class="card-header">
         <div class="user-block">
             <img class="img-circle" src="/img/user1-128x128.jpg" alt="User Image">
-            <span class="username"><a href="#">Computer NoteBook</a></span>
-            <span class="description">4770-0002-001-1</span>
+            <span class="username"><a href="#">เรื่อง : <?=$model->title?></a> <code class="countdown"></code></span>
+            <span class="description">(<?=$model->room->name;?>)</span>
         </div>
         <!-- /.user-block -->
         <div class="card-tools">
@@ -32,59 +34,43 @@ use yii\helpers\Html;
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-        <!-- post text -->
-        <p>Far far away, behind the word mountains, far from the
-            countries Vokalia and Consonantia, there live the blind
-            texts. Separated they live in Bookmarksgrove right at</p>
-        <!-- Attachment -->
-        <div class="attachment-block clearfix">
-            <img class="attachment-img" src="/dist/img/photo1.png" alt="Attachment Image">
-
-            <div class="attachment-pushed">
-                <h4 class="attachment-heading"><a href="http://www.lipsum.com/">Lorem ipsum text generator</a></h4>
-
-                <div class="attachment-text">
-                    Description about the attachment can be placed here.
-                </div>
-                <!-- /.attachment-text -->
-            </div>
-            <!-- /.attachment-pushed -->
-        </div>
-        <!-- /.attachment-block -->
-
+        <p><?=$model->body;?></p>
         <!-- Social sharing buttons -->
-        <button type="button" class="btn btn-default btn-sm"><i class="fas fa-share"></i> Share</button>
+        <button type="button" class="btn btn-primary"><i class="fas fa-print"></i> Print QR-Code</button>
         <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
         <span class="float-right text-muted">45 likes - 2 comments</span>
     </div>
     <!-- /.card-body -->
-    <div class="card-footer card-comments">
-        <!-- /.card-comment -->
-        <div class="card-comment">
-            <!-- User image -->
-            <img class="img-circle img-sm" src="/dist/img/user5-128x128.jpg" alt="User Image">
-
-            <div class="comment-text">
-                <span class="username">
-                    Nora Havisham
-                    <span class="text-muted float-right">8:03 PM Today</span>
-                </span><!-- /.username -->
-                The point of using Lorem Ipsum is that it hrs a morer-less
-            </div>
-            <!-- /.comment-text -->
-        </div>
-        <!-- /.card-comment -->
-    </div>
-    <!-- /.card-footer -->
-    <div class="card-footer">
-        <form action="#" method="post">
-            <img class="img-fluid img-circle img-sm" src="/dist/img/user4-128x128.jpg" alt="Alt Text">
-            <!-- .img-push is used to add margin to elements next to floating images -->
-            <div class="img-push">
-                <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
-            </div>
-        </form>
-    </div>
-    <!-- /.card-footer -->
 </div>
-<?php endfor;?>
+<?php endforeach;?>
+
+
+<?php
+$js = <<< JS
+    // var interval = setInterval(function() {
+    //     var momentNow = moment();
+    //     $('.date-part').html(momentNow.format('YYYY MMMM DD') + ' '
+    //                         + momentNow.format('dddd')
+    //                          .substring(0,3).toUpperCase());
+    //     $('.time-part').html(momentNow.format('A hh:mm:ss'));
+    // }, 100);
+    var timer2 = "5:30:00";
+var interval = setInterval(function() {
+
+
+  var timer = timer2.split(':');
+  //by parsing integer, I avoid all extra string processing
+  var minutes = parseInt(timer[0], 10);
+  var seconds = parseInt(timer[1], 10);
+  --seconds;
+  minutes = (seconds < 0) ? --minutes : minutes;
+  if (minutes < 0) clearInterval(interval);
+  seconds = (seconds < 0) ? 59 : seconds;
+  seconds = (seconds < 10) ? '0' + seconds : seconds;
+  //minutes = (minutes < 10) ?  minutes : minutes;
+  $('.countdown').html(minutes + ':' + seconds);
+  timer2 = minutes + ':' + seconds;
+}, 1000);
+JS;
+$this->registerJS($js)
+?>

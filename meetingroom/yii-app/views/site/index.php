@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 ?>
-<div class="row">
+<div class="row" style="height: 554px;">
     <div class="col-6">
         <div class="card text-left">
             <img class="card-img-top" src="holder.js/100px180/" alt="">

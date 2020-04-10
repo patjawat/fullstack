@@ -78,4 +78,8 @@ class Events extends \yii\db\ActiveRecord
             ],
         ];
     }
+    public function getRoom()
+    {
+        return $this->hasOne(Room::className(), ['id' => 'room_id']);
+    }
 }

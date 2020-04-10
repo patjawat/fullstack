@@ -3,7 +3,7 @@
 use app\modules\mr\models\Room;
 use yii\web\JsExpression;
 use yii\helpers\Url;
-$this->title = 'Event Rooms';
+$this->title = 'ระบบจองห้องประชุม';
 ?>
 
 <div class="row">
@@ -17,7 +17,7 @@ $this->title = 'Event Rooms';
                     <!-- the events -->
                     <div id="external-events">
                         <?php foreach (Room::find()->all() as $room): ?>
-                        <div class="external-event bg-success">
+                        <div class="external-event bg-<?=$room->class;?>">
                             <?=$room->name;?>
                         </div>
                         <?php endforeach;?>
