@@ -19,10 +19,6 @@ class AdminleAsset extends AssetBundle
         'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css',
         'plugins/toastr/toastr.min.css',
         'dist/css/adminlte.min.css',
-        // 'plugins/fullcalendar/main.min.css',
-        // 'plugins/fullcalendar-daygrid/main.min.css',
-        // 'plugins/fullcalendar-timegrid/main.min.css',
-        // 'plugins/fullcalendar-bootstrap/main.min.css',
     ];
 
     public $js = [
@@ -31,16 +27,8 @@ class AdminleAsset extends AssetBundle
         'plugins/sweetalert2/sweetalert2.min.js',
         'plugins/toastr/toastr.min.js',
         'plugins/sweetalert2/sweetalert2.all.min.js',
-        // 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js',
         'plugins/toastr/toastr.min.js',
         'plugins/moment/moment.min.js',
-        // 'plugins/fullcalendar/main.min.js',
-        // 'plugins/fullcalendar/locales-all.min.js',
-        // 'plugins/fullcalendar-daygrid/main.min.js',
-        // 'plugins/fullcalendar-timegrid/main.min.js',
-        // 'plugins/fullcalendar-interaction/main.min.js',
-        // 'plugins/fullcalendar-bootstrap/main.min.js',
-        // 'plugins/fullcalendar-bootstrap/main.min.js',
     ];
 
     public $publishOptions = [
@@ -48,11 +36,6 @@ class AdminleAsset extends AssetBundle
             "dist/js/*",
             "dist/css/*",
             'plugins/moment/*',
-            // 'plugins/fullcalendar/*',
-            // 'plugins/fullcalendar-daygrid/*',
-            // 'plugins/fullcalendar-timegrid/*',
-            // 'plugins/fullcalendar-interaction/*',
-            // 'plugins/fullcalendar-bootstrap/*',
             'plugins/sweetalert2/*',
             'plugins/sweetalert2-theme-bootstrap-4/*',
             'plugins/tempusdominus-bootstrap-4/css/*',

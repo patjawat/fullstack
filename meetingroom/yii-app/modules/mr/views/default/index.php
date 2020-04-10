@@ -3,6 +3,7 @@ use yii\helpers\Html;
 use app\modules\mr\models\Events;
 
 ?>
+
 <form class="form-inline mb-3">
     <div class="form-group mr-3" style="width:40%">
         <label for="inputPassword2" class="sr-only">Password</label>
@@ -16,8 +17,17 @@ use app\modules\mr\models\Events;
     <div class="card-header">
         <div class="user-block">
             <img class="img-circle" src="/img/user1-128x128.jpg" alt="User Image">
-            <span class="username"><a href="#">เรื่อง : <?=$model->title?></a> <code class="countdown"></code></span>
-            <span class="description">(<?=$model->room->name;?>)</span>
+            <span class="username"><a href="#">เรื่อง : <?=$model->title?></a> :
+                <code class="countdown">
+                    </code></span>
+            <span class="description">(<?=$model->room->name;?>) :
+                <?php
+                $start = explode(" ",$model->start);
+                $end = explode(" ",$model->end);
+                echo Yii::$app->thaiFormatter->asDateTime($model->start, 'php:d/m/Y').' เวลา : '.$start[1].' - '.$end[1];
+                ?>
+            </span>
+
         </div>
         <!-- /.user-block -->
         <div class="card-tools">
@@ -35,7 +45,7 @@ use app\modules\mr\models\Events;
     <div class="card-body">
         <p><?=$model->body;?></p>
         <!-- Social sharing buttons -->
-        <button type="button" class="btn btn-primary"><i class="fas fa-print"></i> Print QR-Code</button>
+        <?=Html::a('<i class="fas fa-print"></i> Print QR-Code', ['/mr/events/print-qr','id' => $model->id],['class' => 'btn btn-primary','target' =>'_blank'])?>
         <button type="button" class="btn btn-default btn-sm"><i class="far fa-thumbs-up"></i> Like</button>
         <span class="float-right text-muted">45 likes - 2 comments</span>
     </div>

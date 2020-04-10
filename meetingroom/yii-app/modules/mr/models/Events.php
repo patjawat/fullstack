@@ -7,6 +7,7 @@ use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\Expression;
 use \yii\db\ActiveRecord;
+use yii\helpers\Json;
 
 class Events extends \yii\db\ActiveRecord
 {
@@ -35,7 +36,7 @@ class Events extends \yii\db\ActiveRecord
             [['title', 'body', 'room_id', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'required'],
             [['body'], 'string'],
             [['room_id', 'created_by', 'updated_by'], 'integer'],
-            [['created_at', 'updated_at', 'start', 'end'], 'safe'],
+            [['created_at', 'updated_at', 'start', 'end','gadget'], 'safe'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -52,6 +53,7 @@ class Events extends \yii\db\ActiveRecord
             'room_id' => 'ห้องประชุม',
             'start' => 'เริ่ม',
             'end' => 'สิ้นสุด',
+            'gadget' =>'อุปกรณ์',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
@@ -78,8 +80,25 @@ class Events extends \yii\db\ActiveRecord
             ],
         ];
     }
+    
     public function getRoom()
     {
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
+    }
+
+
+public function afterFind(){
+    $this->gadget = Json::decode($this->gadget, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    return parent::afterFind();
+}
+
+
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+            $this->gadget = Json::encode($this->gadget, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

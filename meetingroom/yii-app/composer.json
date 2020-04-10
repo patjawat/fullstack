@@ -39,6 +39,7 @@
         "kartik-v/yii2-tabs-x": "dev-master",
         "kartik-v/yii2-datecontrol": "dev-master",
         "kartik-v/yii2-date-range": "dev-master",
+        "kartik-v/yii2-mpdf": "^1.0",
         "mdmsoft/yii2-admin": "~2.0",
         "dektrium/yii2-user": "^0.9.14",
         "dektrium/yii2-rbac": "1.0.0-alpha@dev",
@@ -51,7 +52,8 @@
         "mihaildev/yii2-ckeditor": "*",
         "2amigos/yii2-ckeditor-widget" : "~2.1",
         "tecsin/yii2-elfinder": "*",
-        "mihaildev/yii2-elfinder": "*"
+        "mihaildev/yii2-elfinder": "*",
+        "chillerlan/php-qrcode": "^3.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

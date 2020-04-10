@@ -74,6 +74,23 @@ class RoomController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionAdd()
+    {
+        $id = Yii::$app->request->post('id');
+        $class = Yii::$app->request->post('class');
+        $color = Yii::$app->request->post('color');
+        $model = $id ? $this->findModel($id) : new Room();
+        if (Yii::$app->request->post()) {
+            // if($model->isNewRecord){
+                $class ? $model->class = $class : null;
+                $color ? $model->color = $color : null;
+            // }
+           $model->name = Yii::$app->request->post('name');
+           return $model->save();
+        }
+    }
+
+
 
     /**
      * Updates an existing Room model.

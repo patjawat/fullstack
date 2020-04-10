@@ -10,7 +10,10 @@ use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-
+use kartik\mpdf\Pdf;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
+use chillerlan\QRCode\QRCode;
 /**
  * EventsController implements the CRUD actions for Events model.
  */
@@ -69,9 +72,9 @@ class EventsController extends Controller
         $model = new Events();
         $start = Yii::$app->request->get('start');
         $end = Yii::$app->request->get('end');
+        $timeEnd= explode(" ",$end); 
         $thStart = Yii::$app->thaiFormatter->asDate($start, 'php:d/m/Y H:i:s');
-        $thEnd = Yii::$app->thaiFormatter->asDate($end, 'php:d/m/Y H:i:s');
-
+        $thEnd = Yii::$app->thaiFormatter->asDate($end, 'php:d/m/Y H:i:s').'-'.$timeEnd[1];
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             $model->start = $start;
@@ -83,7 +86,7 @@ class EventsController extends Controller
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['title' => 'จองห้องประชุม วันที่ : ' . $thStart,
+            return ['title' => 'จองห้องประชุม วันที่ : ' . $thStart.' - '.$timeEnd[1],
                 'content' => $this->renderAjax('create', [
                     'model' => $model,
                 ]),
@@ -107,14 +110,16 @@ class EventsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        $timeEnd= explode(" ",$model->end); 
+        $thStart = Yii::$app->thaiFormatter->asDate($model->start, 'php:d/m/Y H:i:s');
+        $thEnd = Yii::$app->thaiFormatter->asDate($model->end, 'php:d/m/Y H:i:s').'-'.$timeEnd[1];
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['title' => 'แก้ไขห้องประชุม : ' . $model->room->name,
+            return ['title' => 'แก้ไขการจอง : ' . $thStart.' - '.$timeEnd[1],
                 'content' => $this->renderAjax('update', [
                     'model' => $model,
                 ]),
@@ -156,8 +161,8 @@ class EventsController extends Controller
                 'title' => $model->title,
                 'start' => date('Y-m-d\TH:i:s\Z', strtotime($model->start)),
                 'end' => date('Y-m-d\TH:i:s\Z', strtotime($model->end)),
-                'backgroundColor' => '#f56954', //red
-                'borderColor' => '#f56954', //red
+                'backgroundColor' => $model->room->color, //red
+                'borderColor' => $model->room->color, //red
                 'textColor' => '#fff', //red
                 'editable' => true,
                 'droppable' => true,
@@ -178,6 +183,77 @@ class EventsController extends Controller
         $model->end = $event['end'];
         return $model->save();
 
+    }
+
+    public function actionPrintQr($id){
+        $model = $this->findModel($id);
+        $content = $this->renderPartial('print_qr', [
+            'model' => $model,
+        ]);
+
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+            'mode' => Pdf::MODE_UTF8,
+            // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+            // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+            // your html content input
+            'content' => $content,
+            // format content from your own css file if needed or use the
+            // enhanced bootstrap css built by Krajee for mPDF formatting
+            // 'cssFile' => '@app/web/css/pdf.css',
+            'cssFile' => '@app/web/css/kv-mpdf-bootstrap.css',
+            // any css to be embedded if required
+            'cssInline' => '.bd{border:1.5px solid; text-align: center;} .ar{text-align:right} .imgbd{border:1px solid}',
+            // set mPDF properties on the fly
+            'options' => ['title' => 'Preview Report Case: '],
+            // call mPDF methods on the fly
+            'methods' => [
+                // 'SetHeader'=>'OPD-DOCTOR-RECORD',
+                'SetFooter' => ['{PAGENO}'],
+                'SetHeader' => false,
+                'SetFooter' => false,
+            ],
+            'marginLeft' => 1,
+            'marginRight' => 1,
+            // 'marginTop' => 5,
+                // 'marginBottom' => 10,
+                // 'marginFooter' => 5
+        ]);
+        // Fonts Config
+        $defaultConfig = (new ConfigVariables())->getDefaults();
+        $fontDirs = $defaultConfig['fontDir'];
+
+        $defaultFontConfig = (new FontVariables())->getDefaults();
+        $fontData = $defaultFontConfig['fontdata'];
+
+        $pdf->options['fontDir'] = array_merge($fontDirs, [
+            Yii::getAlias('@webroot') . '/fonts',
+        ]);
+        $pdf->options['fontdata'] = $fontData + [
+            'angsana' => [
+                'R' => 'Angsana.ttf',
+                'TTCfontID' => [
+                    'R' => 1,
+                ],
+            ],
+            'sarabun' => [
+                'R' => 'thsarabunnew-webfont.ttf',
+            ],
+        ];
+        return $pdf->render();
+    }
+    
+    public function actionQr()
+    {
+        Yii::$app->response->format = Response::FORMAT_HTML;
+        $data = 'https://programmerthailand.com';
+        $qr = new QRCode();
+
+        return '<img src="'.$qr->render($data).'" />';
     }
 
 }

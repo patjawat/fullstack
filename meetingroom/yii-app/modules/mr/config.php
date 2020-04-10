@@ -44,6 +44,11 @@ return [
                         ),
                     ],
                 ],
+                [
+                    'class' => 'mihaildev\elfinder\volume\UserPath',
+                    'path'  => 'files/user_{id}',
+                    'name'  => 'My Documents'
+                ],
             ],
             'watermark' => [
                 'source'         => __DIR__.'/logo.png', // Path to Water mark image
