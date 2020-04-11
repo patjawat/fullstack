@@ -4,16 +4,17 @@ namespace app\modules\mr\controllers;
 
 use app\modules\mr\models\Events;
 use app\modules\mr\models\EventsSearch;
+use chillerlan\QRCode\QRCode;
+use kartik\mpdf\Pdf;
+use Mpdf\Config\ConfigVariables;
+use Mpdf\Config\FontVariables;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use kartik\mpdf\Pdf;
-use Mpdf\Config\ConfigVariables;
-use Mpdf\Config\FontVariables;
-use chillerlan\QRCode\QRCode;
+
 /**
  * EventsController implements the CRUD actions for Events model.
  */
@@ -72,9 +73,9 @@ class EventsController extends Controller
         $model = new Events();
         $start = Yii::$app->request->get('start');
         $end = Yii::$app->request->get('end');
-        $timeEnd= explode(" ",$end); 
+        $timeEnd = explode(" ", $end);
         $thStart = Yii::$app->thaiFormatter->asDate($start, 'php:d/m/Y H:i:s');
-        $thEnd = Yii::$app->thaiFormatter->asDate($end, 'php:d/m/Y H:i:s').'-'.$timeEnd[1];
+        $thEnd = Yii::$app->thaiFormatter->asDate($end, 'php:d/m/Y H:i:s') . '-' . $timeEnd[1];
         if ($model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             $model->start = $start;
@@ -86,12 +87,12 @@ class EventsController extends Controller
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['title' => 'จองห้องประชุม วันที่ : ' . $thStart.' - '.$timeEnd[1],
+            return ['title' => 'จองห้องประชุม วันที่ : ' . $thStart . ' - ' . $timeEnd[1],
                 'content' => $this->renderAjax('create', [
                     'model' => $model,
                 ]),
                 'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success','onclick' =>'return saveMeetingRoom()']),
+                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success', 'onclick' => 'return saveMeetingRoom()']),
             ];
         } else {
             return $this->render('create', [
@@ -110,21 +111,21 @@ class EventsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $timeEnd= explode(" ",$model->end); 
+        $timeEnd = explode(" ", $model->end);
         $thStart = Yii::$app->thaiFormatter->asDate($model->start, 'php:d/m/Y H:i:s');
-        $thEnd = Yii::$app->thaiFormatter->asDate($model->end, 'php:d/m/Y H:i:s').'-'.$timeEnd[1];
+        $thEnd = Yii::$app->thaiFormatter->asDate($model->end, 'php:d/m/Y H:i:s') . '-' . $timeEnd[1];
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['index']);
         }
 
         if (Yii::$app->request->isAjax) {
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return ['title' => 'แก้ไขการจอง : ' . $thStart.' - '.$timeEnd[1],
+            return ['title' => 'แก้ไขการจอง : ' . $thStart . ' - ' . $timeEnd[1],
                 'content' => $this->renderAjax('update', [
                     'model' => $model,
                 ]),
                 'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
-                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success','onclick' =>'return saveMeetingRoom()']),
+                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success', 'onclick' => 'return saveMeetingRoom()']),
             ];
         } else {
             return $this->render('update', [
@@ -181,11 +182,13 @@ class EventsController extends Controller
         $model = $this->findModel($id);
         $model->start = $event['start'];
         $model->end = $event['end'];
-        return $model->save();
+        return $model->save(false);
+        // return $event;
 
     }
 
-    public function actionPrintQr($id){
+    public function actionPrintQr($id)
+    {
         $model = $this->findModel($id);
         $content = $this->renderPartial('print_qr', [
             'model' => $model,
@@ -220,8 +223,8 @@ class EventsController extends Controller
             'marginLeft' => 1,
             'marginRight' => 1,
             // 'marginTop' => 5,
-                // 'marginBottom' => 10,
-                // 'marginFooter' => 5
+            // 'marginBottom' => 10,
+            // 'marginFooter' => 5
         ]);
         // Fonts Config
         $defaultConfig = (new ConfigVariables())->getDefaults();
@@ -246,14 +249,14 @@ class EventsController extends Controller
         ];
         return $pdf->render();
     }
-    
+
     public function actionQr()
     {
         Yii::$app->response->format = Response::FORMAT_HTML;
         $data = 'https://programmerthailand.com';
         $qr = new QRCode();
 
-        return '<img src="'.$qr->render($data).'" />';
+        return '<img src="' . $qr->render($data) . '" />';
     }
 
 }

@@ -1,8 +1,8 @@
 <?php
 
 use app\modules\mr\models\Room;
-use yii\web\JsExpression;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 use yii\widgets\Pjax;
 $this->title = 'ระบบจองห้องประชุม';
 ?>
@@ -105,6 +105,7 @@ $this->title = 'ระบบจองห้องประชุม';
                 if(view.name =='agendaDay'){
                     modalShow(start,end)
                 }
+
         }
         "),
         'eventClick' => new JsExpression("
@@ -123,7 +124,7 @@ $this->title = 'ระบบจองห้องประชุม';
         "),
         'eventDrop' => new JsExpression("
             function(event,dayDelta,minuteDelta,allDay,revertFunc) {
-                    getUpdateEventDrop(event)                
+                    getUpdateEventDrop(event)
             }
         "),
         'eventmoveDates' => new JsExpression("
@@ -133,7 +134,7 @@ $this->title = 'ระบบจองห้องประชุม';
         "),
     ],
     // 'events' => $events,
-    'events' => Url::to(['/mr/events/jsoncalendar'])
+    'events' => Url::to(['/mr/events/jsoncalendar']),
 ]);
 ?>
             </div>
@@ -166,15 +167,15 @@ $js = <<< JS
     }
 
     ini_events($('#external-events div.external-event'));
-    
-    $('.external-event').click(function (e) { 
+
+    $('.external-event').click(function (e) {
         console.log($(this).attr('id'));
         var dbclass = $(this).attr('dbclass');
         $('#room-id').val($(this).attr('id'));
         $('#new-event').val($(this).attr('name'));
         $('#add-new-event').text('แก้ไข');
         $('#add-new-event').removeClass('btn-primary btn-warning').addClass('btn btn-'+dbclass)
-        
+
     });
 
 
@@ -184,7 +185,7 @@ $js = <<< JS
     var colorChooser = $('#color-chooser-btn')
     $('#color-chooser > li > a').click(function (e) {
       e.preventDefault()
-      
+
       //Save color
       currColor = $(this).attr('class')
       var res = $(this).attr('class').split("-");
@@ -200,7 +201,7 @@ $js = <<< JS
     $('#room-color').val(color);
     })
 
-    
+
     $('#add-new-event').click(function (e) {
       e.preventDefault()
       //Get value and make sure it is not null
@@ -224,21 +225,6 @@ $js = <<< JS
               }
           });
       }
-
-      //Create events
-    //   var event = $('<div />')
-    //   event.css({
-    //     'background-color': currColor,
-    //     'border-color'    : currColor,
-    //     'color'           : '#fff'
-    //   }).addClass('external-event')
-    //   event.html(val)
-    //   $('#external-events').prepend(event)
-
-    //   //Add draggable funtionality
-    //   ini_events(event)
-
-      //Remove event from text input
       $('#new-event').val('')
     })
 
@@ -260,7 +246,7 @@ $js = <<< JS
         }
       });
     }
-    
+
     function modalShow(start,end){
       $.ajax({
         type: "get",
@@ -292,7 +278,7 @@ $js = <<< JS
                 },
             dataType: "json",
             success: function (response) {
-            
+
             }
         });
     // console.log(event)

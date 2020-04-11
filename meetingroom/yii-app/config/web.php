@@ -3,6 +3,7 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $dbroom = require __DIR__ . '/dbroom.php';
+$dbhr = require __DIR__ . '/dbhr.php';
 $modules = require __DIR__ . '/add_modules.php';
 
 $config = [
@@ -67,6 +68,7 @@ $config = [
             ],
         ],
         'db' => $db,
+        'dbhr' => $dbhr,
         'dbroom' => $dbroom,
         /*
     'urlManager' => [
@@ -85,7 +87,7 @@ $config = [
             'api/*',
         ],
     ],
-    
+
     'params' => $params,
 ];
 

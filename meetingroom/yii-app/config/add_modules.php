@@ -22,9 +22,9 @@ $modules['datecontrol'] = [
     'autoWidget' => true,
     'autoWidgetSettings' => [
         Module::FORMAT_DATE => ['type' => 2, 'pluginOptions' => ['autoclose' => true]], // example
-        Module::FORMAT_DATETIME => ['pluginOptions' => ['autoclose' => true,]],
+        Module::FORMAT_DATETIME => ['pluginOptions' => ['autoclose' => true]],
         Module::FORMAT_TIME => [],
-    ],]; //Oh
+    ]]; //Oh
 
 $modules['user'] = [
     'class' => 'dektrium\user\Module',
@@ -45,9 +45,10 @@ $modules['user'] = [
 ];
 
 $modules['gridview'] = ['class' => '\kartik\grid\Module']; //system
-$modules['admin'] = ['class' => 'mdm\admin\Module'];// จัดการระบ
+$modules['admin'] = ['class' => 'mdm\admin\Module']; // จัดการระบ
 $modules['gridviewKrajee'] = ['class' => '\kartik\grid\Module']; //system
 $modules['usermanager'] = ['class' => 'app\modules\usermanager\Usermanager']; //จัดการผู้ใช้งานระบบ
 $modules['mr'] = ['class' => 'app\modules\mr\Mr']; //จัดการผู้ใช้งานระบบ
+$modules['hr'] = ['class' => 'app\modules\hr\Hr']; //จัดการผู้ใช้งานระบบ
 
 return $modules;

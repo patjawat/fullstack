@@ -11,14 +11,12 @@ use app\modules\mr\models\Events;
  */
 class EventsSearch extends Events
 {
-    /**
-     * {@inheritdoc}
-     */
+    public $q;
     public function rules()
     {
         return [
             [['id', 'room_id', 'created_by', 'updated_by'], 'integer'],
-            [['start','end','created_at', 'updated_at'], 'safe'],
+            [['start','end','created_at', 'updated_at','q'], 'safe'],
         ];
     }
 

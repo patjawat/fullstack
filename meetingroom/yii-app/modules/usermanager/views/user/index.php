@@ -12,8 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
 #user-grid table thead {
     background-color: #fff;
 }
-#user-grid-container{
-  height:480px;
+
+#user-grid-container {
+    height: 480px;
 }
 </style>
 <?php
