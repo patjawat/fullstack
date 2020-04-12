@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariaDB
--- Generation Time: 09 เม.ย. 2020 เมื่อ 01:24 PM
+-- Generation Time: 12 เม.ย. 2020 เมื่อ 04:56 AM
 -- เวอร์ชันของเซิร์ฟเวอร์: 10.4.10-MariaDB-1:10.4.10+maria~bionic
 -- PHP Version: 7.2.25
 
@@ -33,6 +33,7 @@ CREATE TABLE `events` (
   `title` varchar(255) NOT NULL,
   `body` text NOT NULL,
   `room_id` int(11) NOT NULL,
+  `gadget` longtext DEFAULT NULL COMMENT 'อุปกรณ์',
   `start` datetime NOT NULL,
   `end` datetime NOT NULL,
   `created_at` date NOT NULL,
@@ -45,13 +46,30 @@ CREATE TABLE `events` (
 -- dump ตาราง `events`
 --
 
-INSERT INTO `events` (`id`, `title`, `body`, `room_id`, `start`, `end`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(55, 'wedsdf', 'sdfsdfd', 1, '2020-04-06 08:00:00', '2020-04-06 15:00:00', '2020-04-08', '2020-04-09', 1, 1),
-(56, 'wedsdf', 'sdfsdfd', 1, '2020-04-22 06:00:00', '2020-04-22 08:00:00', '2020-04-08', '2020-04-09', 1, 1),
-(57, 'AAAAA', 'sdfsdfsdf', 1, '2020-04-10 04:30:00', '2020-04-10 11:00:00', '2020-04-09', '2020-04-09', 1, 1),
-(58, 'werw', 'erwrwer', 2, '2020-04-09 03:00:00', '2020-04-09 08:00:00', '2020-04-09', '2020-04-09', 1, 1),
-(59, 'ปัจวัฒน์ ศรีบุญเรือง', 'ertert', 1, '2020-04-01 11:00:00', '2020-04-03 11:00:00', '2020-04-09', '2020-04-09', 1, 1),
-(60, 'ทดสอบเพิ่ม Events888', 'Event Tesrt', 2, '2020-04-09 11:30:00', '2020-04-09 12:30:00', '2020-04-09', '2020-04-09', 1, 1);
+INSERT INTO `events` (`id`, `title`, `body`, `room_id`, `gadget`, `start`, `end`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(77, 'aaa', '', 1, '[\"1\",\"3\"]', '2020-03-30 06:30:00', '2020-03-30 09:00:00', '2020-04-11', '2020-04-11', 1, 1),
+(78, 'ประชุมเชิงวิชาการเรื่องการใช้โปรแกรม', '<p>หหกหกดหกด</p>\r\n', 1, '[\"2\",\"3\"]', '2020-04-11 17:00:00', '2020-04-11 20:00:00', '2020-04-11', '2020-04-11', 1, 1),
+(79, 'ประชุมอมรมเรื่องการ CPR เบื้อวต้น', '', 1, '[\"3\"]', '2020-04-12 07:00:00', '2020-04-12 11:30:00', '2020-04-11', '2020-04-11', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- โครงสร้างตาราง `gadget`
+--
+
+CREATE TABLE `gadget` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='อุปกรณ์, เครื่องมื';
+
+--
+-- dump ตาราง `gadget`
+--
+
+INSERT INTO `gadget` (`id`, `name`) VALUES
+(1, 'Computer'),
+(2, 'NoteBook'),
+(3, 'เครื่องเสียง');
 
 -- --------------------------------------------------------
 
@@ -71,8 +89,10 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`id`, `name`, `class`, `color`) VALUES
-(1, 'ห้องประชุมทรายแก้ว', NULL, NULL),
-(2, 'ห้องประชุมทาริน', NULL, NULL);
+(1, 'ห้องประชุมทรายแก้ว', 'primary', '#007bff'),
+(2, 'ห้องประชุมทาริน', 'danger', '#dc3545'),
+(8, 'ห้องประชุมโอ๋', 'success', '#28a745'),
+(9, 'ทดสอบ88', 'warning', '#ffc107');
 
 --
 -- Indexes for dumped tables
@@ -82,6 +102,12 @@ INSERT INTO `room` (`id`, `name`, `class`, `color`) VALUES
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `gadget`
+--
+ALTER TABLE `gadget`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -98,13 +124,19 @@ ALTER TABLE `room`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+
+--
+-- AUTO_INCREMENT for table `gadget`
+--
+ALTER TABLE `gadget`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `room`
 --
 ALTER TABLE `room`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'รหัส', AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
