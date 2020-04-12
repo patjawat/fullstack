@@ -71,7 +71,7 @@ Modal::end();
     <div class="wrapper">
         <?=$this->render('./navbar');?>
 
-        <div class="container">
+        <div class="container" style="margin-bottom: 100px;">
             <?=Breadcrumbs::widget([
     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 ])?>

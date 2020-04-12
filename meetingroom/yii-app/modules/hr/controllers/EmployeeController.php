@@ -2,12 +2,14 @@
 
 namespace app\modules\hr\controllers;
 
-use Yii;
 use app\modules\hr\models\Employee;
 use app\modules\hr\models\EmployeeSearch;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * EmployeeController implements the CRUD actions for Employee model.
@@ -70,9 +72,20 @@ class EmployeeController extends Controller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            return [
+                'title' => '<i class="fas fa-fingerprint"></i> ระบุตัวตน (<code>Requester</code>)',
+                'content' => $this->renderAjax('create', [
+                    'model' => $model,
+                ]),
+                'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success', 'onclick' => 'return saveMeetingRoom()']),
+            ];
+
+        }
+
     }
 
     /**

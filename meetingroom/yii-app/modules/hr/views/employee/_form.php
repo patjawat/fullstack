@@ -3,7 +3,6 @@
 use kartik\datecontrol\DateControl;
 use kartik\widgets\Select2;
 use yii\bootstrap4\ActiveForm;
-use yii\helpers\Html;
 use yii\widgets\MaskedInput;
 /* @var $this yii\web\View */
 /* @var $model app\modules\hr\models\Employee */
@@ -27,27 +26,9 @@ use yii\widgets\MaskedInput;
     margin-bottom: 5px;
 }
 </style>
-<div class="card card-widget shadow-lg p-3 mb-5 bg-white rounded">
-    <div class="card-header">
-        <div class="user-block">
-            <img class="img-circle elevation-3" src="/img/user1-128x128.jpg" alt="User Image">
-            <span class="username"><a href="#">เพิ่มข้อมูลพนักงาน</a></span>
-            <span class="description">Shared publicly - 7:30 PM Today</span>
-        </div>
-        <!-- /.user-block -->
-        <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-toggle="tooltip" title="Mark as read">
-                <i class="far fa-circle"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
-            </button>
-        </div>
-        <!-- /.card-tools -->
-    </div>
-    <!-- /.card-header -->
-    <div class="card-body">
-        <?php
+<!-- <div class="card card-widget shadow-lg p-3 mb-5 bg-white rounded"> -->
+
+<?php
 $form = ActiveForm::begin([
     'id' => 'form-chiefcomplaint',
     'enableAjaxValidation' => true,
@@ -65,12 +46,12 @@ $form = ActiveForm::begin([
     'layout' => 'horizontal',
 ]);
 ?>
-        <di class="row">
-            <div class="col-6">
-                <?=$form->field($model, 'gender')->inline()->radioList(['M' => 'Male', 'F' => 'Female'])?>
-                <?=$form->field($model, 'pname')->textInput(['maxlength' => true])?>
-                <?=$form->field($model, 'id')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9'])?>
-                <?=$form->field($model, 'birthdate')->widget(DateControl::classname(), [
+<di class="row">
+    <div class="col-6">
+        <?=$form->field($model, 'gender')->inline()->radioList(['M' => 'Male', 'F' => 'Female'])?>
+        <?=$form->field($model, 'pname')->textInput(['maxlength' => true])?>
+        <?=$form->field($model, 'id')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9'])?>
+        <?=$form->field($model, 'birthdate')->widget(DateControl::classname(), [
     'type' => DateControl::FORMAT_DATE,
     'language' => 'th',
     'ajaxConversion' => false,
@@ -81,12 +62,12 @@ $form = ActiveForm::begin([
     ],
 ]);
 ?>
-                <?=$form->field($model, 'fname')->textInput(['maxlength' => true])?>
-                <?=$form->field($model, 'lname')->textInput(['maxlength' => true])?>
-                <?=$form->field($model, 'photo')->fileInput(['maxlength' => true])?>
-            </div>
-            <div class="col-6">
-                <?=
+        <?=$form->field($model, 'fname')->textInput(['maxlength' => true])?>
+        <?=$form->field($model, 'lname')->textInput(['maxlength' => true])?>
+        <?=$form->field($model, 'photo')->fileInput(['maxlength' => true])?>
+    </div>
+    <div class="col-6">
+        <?=
 $form->field($model, 'department_id')->widget(Select2::classname(), [
     'data' => [
         'Standard' => "Standard",
@@ -100,7 +81,7 @@ $form->field($model, 'department_id')->widget(Select2::classname(), [
     ],
 ])->label();
 ?>
-                <?=
+        <?=
 $form->field($model, 'position_id')->widget(Select2::classname(), [
     'data' => [
         'Standard' => "Standard",
@@ -114,9 +95,9 @@ $form->field($model, 'position_id')->widget(Select2::classname(), [
     ],
 ])->label();
 ?>
-                <?=$form->field($model, 'salary')->textInput()?>
-                <?=$form->field($model, 'phone')->textInput(['maxlength' => true])?>
-                <?=$form->field($model, 'job_start')->widget(DateControl::classname(), [
+        <?=$form->field($model, 'salary')->textInput()?>
+        <?=$form->field($model, 'phone')->textInput(['maxlength' => true])?>
+        <?=$form->field($model, 'job_start')->widget(DateControl::classname(), [
     'type' => DateControl::FORMAT_DATE,
     'language' => 'th',
     'ajaxConversion' => false,
@@ -127,7 +108,7 @@ $form->field($model, 'position_id')->widget(Select2::classname(), [
     ],
 ]);
 ?>
-                <?=$form->field($model, 'job_expire')->widget(DateControl::classname(), [
+        <?=$form->field($model, 'job_expire')->widget(DateControl::classname(), [
     'type' => DateControl::FORMAT_DATE,
     'language' => 'th',
     'ajaxConversion' => false,
@@ -138,15 +119,7 @@ $form->field($model, 'position_id')->widget(Select2::classname(), [
     ],
 ]);
 ?>
-            </div>
     </div>
-    <div class="row">
-        <div class="col-3 offset-1">
-            <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success'])?>
-            <?=Html::a('ยกเลิก', ['/hr/employee'], ['class' => 'btn btn-default'])?>
+    </div>
 
-        </div>
-    </div>
     <?php ActiveForm::end();?>
-    <br>
-</div>
