@@ -2,14 +2,15 @@
 
 namespace app\modules\hr\controllers;
 
-use Yii;
 use app\modules\hr\models\Department;
 use app\modules\hr\models\DepartmentSearch;
+use Yii;
+use yii\filters\VerbFilter;
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
-use yii\helpers\Html;
+
 class DepartmentController extends Controller
 {
     /**
@@ -45,7 +46,7 @@ class DepartmentController extends Controller
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
                 ]),
-                'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"])
+                'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]),
             ];
 
         }
@@ -71,14 +72,14 @@ class DepartmentController extends Controller
      */
     public function actionCreate()
     {
+        Yii::$app->response->format = Response::FORMAT_JSON;
         $model = new Department();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            return $model->save();
         }
 
         if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
 
             return [
                 'title' => '<i class="fas fa-fingerprint"></i> ระบุตัวตน (<code>Requester</code>)',
@@ -103,13 +104,22 @@ class DepartmentController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            return $model->save();
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'title' => '<i class="fas fa-fingerprint"></i> ระบุตัวตน (<code>Requester</code>)',
+                'content' => $this->renderAjax('create', [
+                    'model' => $model,
+                ]),
+                'footer' => Html::button('<i class="fas fa-power-off"></i> ปิด', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) .
+                Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success', 'onclick' => 'return saveEmployee()']),
+            ];
+
+        }
     }
 
     /**
@@ -121,9 +131,11 @@ class DepartmentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            'status' => $this->findModel($id)->delete(),
+            'msg' => '',
+        ];
     }
 
     /**

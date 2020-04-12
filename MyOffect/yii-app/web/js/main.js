@@ -46,3 +46,15 @@ function beforeSendData(){
   '<div class="progress-bar progress-bar-striped progress-bar-animated" style="width:100%"></div>'+
   '</div>');
 }
+
+function showModal(){
+  $('#main-modal').modal('show');
+  $('.modal-footer').show();
+  $(".modal-dialog").removeClass('modal-lg modal-sm modal-md')
+  $('.modal-content').addClass('card-outline card-primary');
+  $(".modal-dialog").addClass('modal-lg');
+  $('#main-modal-label').html('title');
+  // $('.modal-header').html(response.title);
+  $('.modal-body').html('hhh');
+  $('.modal-footer').html('fff');
+}

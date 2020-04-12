@@ -21,11 +21,11 @@ use yii\helpers\Html;
                     <?=Html::a('หน้าหลัก', ['/site'], ['class' => 'nav-link'])?>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
+                    <?=Html::a('จองห้องประชุม', ['/mr'], ['class' => 'nav-link']);?>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        class="nav-link dropdown-toggle">HR</a>
+                        class="nav-link dropdown-toggle">ระบบบริหารงานบุคคล</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><?=Html::a('พนักงาน', ['/hr/employee'], ['class' => 'dropdown-item']);?></li>
                         <li><a href="#" class="dropdown-item">Some other action</a></li>

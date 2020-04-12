@@ -229,7 +229,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
+                "url": "git@github.com:RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -382,16 +382,16 @@
         },
         {
             "name": "chillerlan/php-qrcode",
-            "version": "3.2.2",
+            "version": "3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-qrcode.git",
-                "reference": "1d9b1e12023c3a1f60380c75007dae5162f27521"
+                "reference": "abb7ce7831f1e1653542c68783b2d4d57c372a02"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/1d9b1e12023c3a1f60380c75007dae5162f27521",
-                "reference": "1d9b1e12023c3a1f60380c75007dae5162f27521",
+                "url": "https://api.github.com/repos/chillerlan/php-qrcode/zipball/abb7ce7831f1e1653542c68783b2d4d57c372a02",
+                "reference": "abb7ce7831f1e1653542c68783b2d4d57c372a02",
                 "shasum": ""
             },
             "require": {
@@ -441,7 +441,7 @@
                 "qrcode",
                 "qrcode-generator"
             ],
-            "time": "2020-04-05T23:06:47+00:00"
+            "time": "2020-04-12T06:59:53+00:00"
         },
         {
             "name": "chillerlan/php-settings-container",

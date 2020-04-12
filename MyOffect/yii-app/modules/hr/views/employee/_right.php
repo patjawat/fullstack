@@ -1,5 +1,7 @@
 <?php
 use yii\helpers\Html;
+use yii\web\View;
+$this->registerJS($this->render('../../dist/js/hr.js'), View::POS_END);
 ?>
 <div class="card text-left">
     <div class="card-header">
@@ -69,7 +71,9 @@ use yii\helpers\Html;
         <!-- /.card-tools -->
     </div>
     <div class="card-body bg-Secondary">
-        <?=Html::a('<i class="fas fa-angle-double-right"></i> แผนก/ฝ่าย',['/hr/department'],['class' =>'modal-show']);?><br>
-        <?=Html::a('<i class="fas fa-angle-double-right"></i> ตำแหน่งงาน',['/hr/department'],['class' =>'modal-show']);?>
+        <button type="button" class="btn btn-primary btn-block" onclick=" return loadDepartments()"><i
+                class="fas fa-angle-double-right"></i> แผนก/ฝ่าย</button>
+        <?=Html::a('<i class="fas fa-angle-double-right"></i> แผนก/ฝ่าย', ['#'], ['class' => '', 'onclick' => 'return loadDepartments()']);?><br>
+        <?=Html::a('<i class="fas fa-angle-double-right"></i> ตำแหน่งงาน', ['/hr/department'], ['class' => '']);?>
     </div>
 </div>

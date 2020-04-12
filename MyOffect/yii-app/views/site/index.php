@@ -77,4 +77,5 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
+    <?=$this->render('../../modules/hr/views/default/department');?>
 </div>
