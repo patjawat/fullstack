@@ -31,11 +31,13 @@ use yii\helpers\Html;
                     <?=Html::a('<i class="far fa-copy"></i> <p>ใบจอง</p>', ['/car2/customer'], ['class' => 'nav-link']);?>
                 </li>
                 <li class="nav-item">
-                    <?=Html::a('<i class="fas fa-user-tag"></i> <p>ลูกค้า</p>', ['/car2/customers'], ['class' => 'nav-link']);?>
+                    <?=Html::a('<i class="fas fa-user-tag"></i> <p>ลูกค้า</p>', ['/car2/customers'], ['class' => Yii::$app->controller->id == 'customers' ? 'nav-link active' : 'nav-link']);?>
+                </li>
+                <li class="nav-item">
+                    <?=Html::a('<i class="fas fa-code-branch"></i> <p>สาขา</p>', ['/car2/branch'], ['class' => Yii::$app->controller->id == 'branch' ? 'nav-link active' : 'nav-link']);?>
                 </li>
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-car"></i>
+                    <a href="#" class="nav-link"> <i class="fas fa-car"></i>
                         <p>
                             รถยนต์
                             <i class="right fas fa-angle-left"></i>

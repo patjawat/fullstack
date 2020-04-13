@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <!-- Social sharing buttons -->
             <a class="btn btn-primary btn-sm" href="/index.php?r=mr%2Fevents%2Fprint-qr&amp;id=79" target="_blank"
                 data-pjax="0"><i class="far fa-id-card"></i> พิมพ์บัตรประจำตัว</a>
-            <?=Html::a('<i class="far fa-edit"></i>แก้ไข', ['/hr/employee/update', 'id' => $model->id], ['class' => 'btn btn-sm btn-warning create-employee']);?>
+            <?=Html::a('<i class="far fa-edit"></i>แก้ไข', ['/car2/customers/update', 'id' => $model->id], ['class' => 'btn btn-sm btn-warning create-employee']);?>
             <span class="float-right text-muted">45 likes - 2 comments</span>
         </div>
         <!-- /.card-body -->

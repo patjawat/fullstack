@@ -37,7 +37,7 @@ body {
 </style>
 <!-- <body class="layout-top-nav"> -->
 
-<body class="sidebar-mini layout-fixed layout-navbar-fixed">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
     <?php $this->beginBody()?>
     <?php
 Modal::begin([

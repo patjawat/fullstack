@@ -3,23 +3,11 @@
 namespace app\modules\car2\models;
 
 use Yii;
+use yii\behaviors\AttributeBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\Expression;
+use \yii\db\ActiveRecord;
 
-/**
- * This is the model class for table "car2_customers".
- *
- * @property string $id รหัสลูกค้า
- * @property string $gender เพศ
- * @property string $pname คำนำหน้า
- * @property string $fullname ชื่อ-นามสกุล
- * @property string $birthdate วันเกิด
- * @property string $cid เลขบัตรประชาชน
- * @property int $branch_id สาขา
- * @property string $address ที่อยู่
- * @property string $created_at
- * @property string $updated_at
- * @property int $created_by
- * @property int $updated_by
- */
 class Customers extends \yii\db\ActiveRecord
 {
     public $q;
@@ -73,4 +61,35 @@ class Customers extends \yii\db\ActiveRecord
             'updated_by' => 'Updated By',
         ];
     }
+
+    public function behaviors()
+    {
+        $genForGroup = (new \yii\db\Query)->select(new Expression('DATE_FORMAT(NOW(),"%y")'))->scalar();
+        return [
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at']],
+                'value' => new Expression('NOW()'),
+            ],
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [ActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at'],
+                'value' => new Expression('NOW()'),
+            ],
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+            [
+                // การกำหนด runing number
+                'class' => 'mdm\autonumber\Behavior',
+                'attribute' => 'id', // required
+                'group' => $genForGroup, // กลุ่มที่รันตัวเลข
+                'value' => $genForGroup . 'T?', // format auto number. '?'
+                'digit' => 7, // จำนวนค่าว่างต้เิงค่าเป็น 0
+            ],
+        ];
+    }
+
 }

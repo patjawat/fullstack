@@ -1,45 +1,108 @@
 <?php
 
+use kartik\datecontrol\DateControl;
+use kartik\widgets\Select2;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 
-/* @var $this yii\web\View */
-/* @var $model app\modules\car2\models\Customers */
-/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="customers-form">
+<style>
+.form-group>label {
+    text-align: end;
+    font-size: 15px;
+}
 
-    <?php $form = ActiveForm::begin(); ?>
+.help-block {
+    display: block;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #737373;
+}
 
-    <?= $form->field($model, 'id')->textInput(['maxlength' => true]) ?>
+.form-group {
+    margin-bottom: 5px;
+}
+</style>
 
-    <?= $form->field($model, 'gender')->textInput(['maxlength' => true]) ?>
+<?php
+$form = ActiveForm::begin([
+    'id' => 'form-employee',
+    'fieldConfig' => [
+        'horizontalCssClasses' => [
+            'label' => 'col-3',
+            'wrapper' => 'col-lg-8 col-md-8 col-sm-8 offset-sm-0',
+        ],
+    ],
+    'layout' => 'horizontal',
+]);
+?>
 
-    <?= $form->field($model, 'pname')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fullname')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'birthdate')->textInput() ?>
-
-    <?= $form->field($model, 'cid')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'branch_id')->textInput() ?>
-
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+<div class="card">
+    <div class="card-header">
+        <?php if ($model->isNewRecord): ?>
+        <h3 class="card-title"><i class="fas fa-plus"></i> สร้างใหม่</h3>
+        <?php else: ?>
+        <h3 class="card-title"><i class="fas fa-edit"></i> แก้ไข</h3>
+        <?php endif;?>
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                title="Collapse">
+                <i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fas fa-times"></i></button>
+        </div>
     </div>
+    <div class="card-body">
 
-    <?php ActiveForm::end(); ?>
+        <div class="row">
+            <div class="col-6">
+                <?=$form->field($model, 'gender')->inline()->radioList(['M' => 'ชาย', 'F' => 'หญิง'])?>
+                <?=$form->field($model, 'pname')->widget(Select2::classname(), ['data' => [
+    'นาย' => "นาย",
+    'นาง' => "นาง",
+    'นางสาว' => "นางสาว",
+],
+    'options' => ['placeholder' => 'เลือกคำนำหน้า'],
+    'pluginOptions' => [
+        'allowClear' => true,
+    ],
+])->label();
+?>
+                <?=$form->field($model, 'cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9'])?>
+                <?=$form->field($model, 'birthdate')->widget(DateControl::classname(), ['type' => DateControl::FORMAT_DATE,
+    'language' => 'th',
+    'ajaxConversion' => false,
+    'widgetOptions' => [
+        'pluginOptions' => [
+            'autoclose' => true,
+        ],
+    ],
+]);
+?>
 
+
+                <div class="form-group">
+                    <?=Html::submitButton('Save', ['class' => 'btn btn-success'])?>
+                </div>
+            </div>
+            <div class="col-6">
+
+                <?=$form->field($model, 'branch_id')->textInput()?>
+
+                <?=$form->field($model, 'address')->textInput(['maxlength' => true])?>
+            </div>
+        </div>
+
+
+        Start creating your amazing application!
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+
+    </div>
+    <!-- /.card-footer-->
 </div>
+<?php ActiveForm::end();?>
