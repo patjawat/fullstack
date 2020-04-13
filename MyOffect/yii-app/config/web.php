@@ -1,10 +1,9 @@
 <?php
-use yii\web\Response;
-use yii\web\JsExpression;
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 $dbroom = require __DIR__ . '/dbroom.php';
 $dbhr = require __DIR__ . '/dbhr.php';
+$dbcar2 = require __DIR__ . '/dbcar2.php';
 $modules = require __DIR__ . '/add_modules.php';
 
 $config = [
@@ -71,6 +70,7 @@ $config = [
         'db' => $db,
         'dbhr' => $dbhr,
         'dbroom' => $dbroom,
+        'dbcar2' => $dbcar2,
         /*
     'urlManager' => [
     'enablePrettyUrl' => true,

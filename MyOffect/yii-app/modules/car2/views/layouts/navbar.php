@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Html;
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white shadow-sm mb-5 bg-white rounded">
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white shadow-sm bg-white rounded">
     <div class="container">
         <a href="../../index3.html" class="navbar-brand">
             <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                 style="opacity: .8">
-            <span class="brand-text font-weight-light">MyProject V1</span>
+            <span class="brand-text font-weight-light">ระบบเต้นรถมือสอง</span>
         </a>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -21,11 +21,11 @@ use yii\helpers\Html;
                     <?=Html::a('หน้าหลัก', ['/site'], ['class' => 'nav-link'])?>
                 </li>
                 <li class="nav-item">
-                    <?=Html::a('จองห้องประชุม', ['/mr'], ['class' => 'nav-link']);?>
+                    <?=Html::a('จองรถ', ['/mr'], ['class' => 'nav-link']);?>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        class="nav-link dropdown-toggle">ระบบบริหารงานบุคคล</a>
+                        class="nav-link dropdown-toggle">เกี่ยวกับระบบ</a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li><?=Html::a('พนักงาน', ['/hr/employee'], ['class' => 'dropdown-item']);?></li>
                         <li><a href="#" class="dropdown-item">Some other action</a></li>

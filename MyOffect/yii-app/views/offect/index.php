@@ -19,12 +19,16 @@ use yii\helpers\Html;
         Manuel
         Pinto</h6>
 </div>
+
+
+<?=$this->render('../../modules/hr/views/default/department');?>
+
 <div class="row" style="height: 554px;">
     <div class="col-6">
         <div class="card text-left">
             <img class="card-img-top" src="holder.js/100px180/" alt="">
             <div class="card-body">
-                <h4 class="card-title">ระบบบริหารงาน Offect</h4>
+                <h4 class="card-title">ระบบจองห้องประชุม</h4>
                 <p class="card-text">
                     <?=Html::a('เลือก', ['/mr'], [])?>
                 </p>
@@ -53,9 +57,9 @@ use yii\helpers\Html;
         <div class="card text-left">
             <img class="card-img-top" src="holder.js/100px180/" alt="">
             <div class="card-body">
-                <h4 class="card-title">ระบบเต้นรถมือสอง</h4>
+                <h4 class="card-title">ระบบบริหารงานบุคคล (HR)</h4>
                 <p class="card-text">
-                    <?=Html::a('เลือก', ['/car2'], [])?>
+                    <?=Html::a('เลือก', ['/hr'], [])?>
                 </p>
             </div>
         </div>
