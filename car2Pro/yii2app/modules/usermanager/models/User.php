@@ -69,7 +69,7 @@ class User extends ActiveRecord implements IdentityInterface
                  ['confirm_password', 'string', 'min' => 6],
                  ['confirm_password', 'compare','compareAttribute'=>'password'],
 
-                 [['roles','doctor_id','fullname','q'], 'safe']
+                 [['roles','doctor_id','fullname','q','branch_id'], 'safe']
 
              ];
          }
@@ -82,7 +82,8 @@ class User extends ActiveRecord implements IdentityInterface
                  'fullname' => 'ชื่อ-สกุล',
                  'username' => 'ชื่อเข้าใช้งาน',
                  'password' => 'รหัสผ่าน',
-                 'confirm_password' => 'ยืนยันรหัสผ่าน'
+                 'confirm_password' => 'ยืนยันรหัสผ่าน',
+                 'branch_id' =>'สาขา'
              ];
             }
     /**

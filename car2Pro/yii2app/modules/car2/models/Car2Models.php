@@ -11,11 +11,12 @@ use Yii;
  * @property int $band_id ยี่ห้อ
  * @property string $name ชื่อ
  */
-class Models extends \yii\db\ActiveRecord
+class Car2Models extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
+    public $q;
     public static function tableName()
     {
         return 'car2_models';

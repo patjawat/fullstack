@@ -25,7 +25,7 @@ use yii\helpers\Html;
 
 <?php
 $js = <<< JS
-$('#modelssearch-q').select();
+$('#car2modelssearch-q').select();
 JS;
 $this->registerJS($js);
 ?>

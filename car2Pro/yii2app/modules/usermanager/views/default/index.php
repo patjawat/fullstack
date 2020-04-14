@@ -1,7 +1,3 @@
-<div class="usermanager-default-index">
-    <h2>ตั้งค่าผู้ใช้งานระบบ</h2>
-</div>
-
 <div class="show-user"></div>
 
 <?php

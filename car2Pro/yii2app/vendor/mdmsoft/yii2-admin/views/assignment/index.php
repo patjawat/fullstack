@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -21,7 +21,7 @@ if (!empty($extraColumns)) {
     $columns = array_merge($columns, $extraColumns);
 }
 $columns[] = [
-    'class' => 'yii\grid\ActionColumn',
+    'class' => 'kartik\grid\ActionColumn',
     'template' => '{view}'
 ];
 ?>

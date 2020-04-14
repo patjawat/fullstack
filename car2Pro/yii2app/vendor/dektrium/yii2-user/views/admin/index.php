@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => 'raw',
         ],
         [
-            'class' => 'yii\grid\ActionColumn',
+            'class' => 'kartik\grid\ActionColumn',
             'template' => '{switch} {resend_password} {update} {delete}',
             'buttons' => [
                 'resend_password' => function ($url, $model, $key) {

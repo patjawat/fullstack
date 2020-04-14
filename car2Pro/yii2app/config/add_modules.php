@@ -45,9 +45,16 @@ $modules['user'] = [
 ];
 
 $modules['gridview'] = ['class' => '\kartik\grid\Module']; //system
-$modules['admin'] = ['class' => 'mdm\admin\Module']; // จัดการระบ
+$modules['admin'] = [
+    'class' => 'mdm\admin\Module',
+    'layout' => '@app/modules/car2/views/layouts/admin',
+
+]; // จัดการระบ
 $modules['gridviewKrajee'] = ['class' => '\kartik\grid\Module']; //system
-$modules['usermanager'] = ['class' => 'app\modules\usermanager\Usermanager']; //จัดการผู้ใช้งานระบบ
+$modules['usermanager'] = [
+    'class' => 'app\modules\usermanager\Usermanager',
+    'layout' => '@app/modules/car2/views/layouts/admin',
+]; //จัดการผู้ใช้งานระบบ
 $modules['car2'] = ['class' => 'app\modules\car2\Car2']; //ระบบจัดการเต้นรถมือ2
 
 return $modules;

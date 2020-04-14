@@ -1,13 +1,14 @@
 <?php
 use yii\helpers\Html;
+use app\components\SystemHelper;
+
 ?>
-<nav class="main-header navbar navbar-expand-md navbar-light navbar-white shadow-sm bg-white rounded">
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white shadow bg-white rounded">
     <div class="container">
-        <a href="../../index3.html" class="navbar-brand">
-            <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                style="opacity: .8">
-            <span class="brand-text font-weight-light">ระบบเต้นรถมือสอง</span>
-        </a>
+        <?=Html::a(Html::img('@web/img/AdminLTELogo.png', [
+    'class' => 'brand-image img-circle elevation-3',
+    'style' => 'opacity: .8']) . '<span class="brand-text font-weight-light">'.SystemHelper::getTitle().'</span>',
+    ['/car2'], ['class' => 'navbar-brand']);?>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +19,10 @@ use yii\helpers\Html;
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <?=Html::a('หน้าหลัก', ['/site'], ['class' => 'nav-link'])?>
+                    <?=Html::a('หน้าหลัก', ['/car2'], ['class' => 'nav-link'])?>
+                </li>
+                <li class="nav-item">
+                    <?=Html::a('รถยนต์', ['/car2/list'], ['class' => 'nav-link']);?>
                 </li>
                 <li class="nav-item">
                     <?=Html::a('admin', ['/car2/admin'], ['class' => 'nav-link']);?>

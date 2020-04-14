@@ -4,8 +4,7 @@ namespace app\modules\car2\controllers;
 
 use app\modules\car2\models\Bands;
 use app\modules\car2\models\BandsSearch;
-use app\modules\car2\models\Models;
-use app\modules\car2\models\ModelsSearch;
+use app\modules\car2\models\Car2ModelsSearch;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -58,7 +57,7 @@ class BandsController extends Controller
      */
     public function actionView($id)
     {
-        $searchModel = new ModelsSearch();
+        $searchModel = new Car2ModelsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->query->where(['band_id' => $id]);
         $dataProvider->query->andFilterWhere(['like', 'name', $searchModel->q]);

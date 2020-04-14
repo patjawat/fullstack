@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use mdm\admin\components\RouteRule;
 use mdm\admin\components\Configs;
 
@@ -43,7 +43,7 @@ unset($rules[RouteRule::RULE_NAME]);
                 'attribute' => 'description',
                 'label' => Yii::t('rbac-admin', 'Description'),
             ],
-            ['class' => 'yii\grid\ActionColumn',],
+            ['class' => 'kartik\grid\ActionColumn',],
         ],
     ])
     ?>

@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="bands-view">
     <p>
         <?=Html::a('<i class="fas fa-angle-left"></i> หน้าหลัก', ['/car2/bands'], ['class' => 'btn btn-default']);?>
-        <?=Html::a('<i class="fas fa-plus"></i> เพิ่มรุ่นรถยนต์', ['/car2/models/create', 'band_id' => $model->id], ['class' => 'btn btn-success create-models'])?>
+        <?=Html::a('<i class="fas fa-plus"></i> เพิ่มรุ่นรถยนต์', ['/car2/car2-models/create', 'band_id' => $model->id], ['class' => 'btn btn-success create-models'])?>
         <?=Html::a('<i class="far fa-edit"></i> แก้ไข', ['update', 'id' => $model->id], ['class' => 'btn btn-primary'])?>
         <?=Html::a('<i class="far fa-trash-alt"></i> ลบ', ['delete', 'id' => $model->id], [
     'class' => 'btn btn-danger',
@@ -48,7 +48,7 @@ $layout = <<< HTML
 
                 <div class="card-tools">
                  <div style="width: 800px;">
-                    {$this->render('../models/_search',['model'=>$searchModel,'id'=>$model->id])}
+                    {$this->render('../car2-models/_search',['model'=>$searchModel,'id'=>$model->id])}
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ HTML;
                         'onclick' => "
                             $.ajax({
                                 type: 'get',
-                                url: '" . \yii\helpers\Url::to(['/car2/models/update', 'id' => $model->id]) . "',
+                                url: '" . \yii\helpers\Url::to(['/car2/car2-models/update', 'id' => $model->id]) . "',
                                 beforeSend: function(){
                                     beforLoadModal();
                                 },
@@ -146,7 +146,7 @@ HTML;
                         if (confirm('ลบข้อมูล?')) {
                             $.ajax({
                                 type: 'post',
-                                url: '" . \yii\helpers\Url::to(['/car2/models/delete', 'id' => $model->id]) . "',
+                                url: '" . \yii\helpers\Url::to(['/car2/car2-models/delete', 'id' => $model->id]) . "',
                                 success: function (response) {
                                  if(response){
                                     $.pjax.reload({container:'#bands-container-pjax'});

@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\car2\models\Models */
+/* @var $model app\modules\car2\models\Cars */
 
-$this->title = 'Create Models';
-$this->params['breadcrumbs'][] = ['label' => 'Models', 'url' => ['index']];
+$this->title = 'Create Cars';
+$this->params['breadcrumbs'][] = ['label' => 'Cars', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="models-create">
+<div class="cars-create">
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

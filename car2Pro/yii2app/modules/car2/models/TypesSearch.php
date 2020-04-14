@@ -2,24 +2,23 @@
 
 namespace app\modules\car2\models;
 
-use app\modules\car2\models\Models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use app\modules\car2\models\Types;
 
 /**
- * ModelsSearch represents the model behind the search form of `app\modules\car2\models\Models`.
+ * TypesSearch represents the model behind the search form of `app\modules\car2\models\Types`.
  */
-class ModelsSearch extends Models
+class TypesSearch extends Types
 {
     /**
      * {@inheritdoc}
      */
-    public $q;
     public function rules()
     {
         return [
-            [['id', 'band_id'], 'integer'],
-            [['name', 'q'], 'safe'],
+            [['id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class ModelsSearch extends Models
      */
     public function search($params)
     {
-        $query = Models::find();
+        $query = Types::find();
 
         // add conditions that should always apply here
 
@@ -60,7 +59,6 @@ class ModelsSearch extends Models
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'band_id' => $this->band_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

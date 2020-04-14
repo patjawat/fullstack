@@ -4,10 +4,12 @@ namespace app\modules\car2\controllers;
 
 use app\modules\car2\models\Customers;
 use app\modules\car2\models\CustomersSearch;
+use app\modules\car2\models\Districts;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * CustomersController implements the CRUD actions for Customers model.
@@ -89,7 +91,7 @@ class CustomersController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -126,5 +128,24 @@ class CustomersController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionGetAddress()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $zip_code = Yii::$app->request->get('zip_code');
+        $model = $zip_code ? Districts::find()->where(['zip_code' => $zip_code])->one() : null;
+
+        if ($model) {
+            // return $model;
+            return [
+                'amphure_id' => $model->amphure_id,
+                'amphure_name' => $model->amphures->name_th,
+                'province_id' => $model->amphures->provinces->id,
+                'province_name' => $model->amphures->provinces->name_th,
+
+            ];
+        }
+
     }
 }

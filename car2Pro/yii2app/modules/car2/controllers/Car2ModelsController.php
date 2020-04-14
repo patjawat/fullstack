@@ -2,16 +2,18 @@
 
 namespace app\modules\car2\controllers;
 
-use app\modules\car2\models\Models;
-use app\modules\car2\models\ModelsSearch;
 use Yii;
-use yii\filters\VerbFilter;
-use yii\helpers\Html;
+use app\modules\car2\models\Car2Models;
+use app\modules\car2\models\Car2ModelsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
 use yii\web\Response;
-
-class ModelsController extends Controller
+use yii\helpers\Html;
+/**
+ * Car2ModelsController implements the CRUD actions for Car2Models model.
+ */
+class Car2ModelsController extends Controller
 {
 
     public function init()
@@ -33,7 +35,7 @@ class ModelsController extends Controller
 
     public function actionIndex()
     {
-        $searchModel = new ModelsSearch();
+        $searchModel = new CarModelsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -53,7 +55,7 @@ class ModelsController extends Controller
     {
         $band_id = Yii::$app->request->get('band_id');
         $request = Yii::$app->request;
-        $model = new Models();
+        $model = new Car2Models();
         $model->band_id = $band_id;
 
         if ($model->load(Yii::$app->request->post())) {
@@ -113,7 +115,7 @@ class ModelsController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Models::findOne($id)) !== null) {
+        if (($model = Car2Models::findOne($id)) !== null) {
             return $model;
         }
 

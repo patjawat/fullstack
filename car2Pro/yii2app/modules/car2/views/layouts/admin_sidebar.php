@@ -2,12 +2,10 @@
 use yii\helpers\Html;
 ?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link elevation-4">
-        <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminCar2</span>
-    </a>
+    <?=Html::a(Html::img('@web/img/AdminLTELogo.png', [
+    'class' => 'brand-image img-circle elevation-3',
+    'style' => 'opacity: .8']) . '<span class="brand-text font-weight-light">ระบบเต้นรถมือสอง</span>',
+    ['/car2/admin'], ['class' => 'brand-link elevation-4']);?>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -48,12 +46,11 @@ use yii\helpers\Html;
                             <?=Html::a('<i class="fas fa-user-tag"></i> <p>ยี่ห้อ</p>', ['/car2/bands'], ['class' => 'nav-link']);?>
                         </li>
                         <li class="nav-item">
-                            <?=Html::a('<i class="fas fa-user-tag"></i> <p>ข้อมูลรถยนต์</p>', ['/car2/customer'], ['class' => 'nav-link']);?>
-
+                            <?=Html::a('<i class="fas fa-user-tag"></i> <p>ข้อมูลรถยนต์</p>', ['/car2/cars'], ['class' => 'nav-link']);?>
                         </li>
 
                         <li class="nav-item">
-                            <?=Html::a('<i class="fas fa-user-tag"></i> <p>ประเภท</p>', ['/car2/customers'], ['class' => 'nav-link']);?>
+                            <?=Html::a('<i class="fas fa-user-tag"></i> <p>ประเภท</p>', ['/car2/types'], ['class' => 'nav-link']);?>
                         </li>
                         <li class="nav-item">
                             <a href="../../index3.html" class="nav-link">
@@ -62,6 +59,9 @@ use yii\helpers\Html;
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <?=Html::a('<i class="fas fa-cogs"></i> <p>ตั้งค่าระบบ</p>', ['/car2/setting/update','id'=>1], ['class' => Yii::$app->controller->id == 'setting' ? 'nav-link active' : 'nav-link']);?>
                 </li>
                 <li class="nav-item">
                     <a href="../widgets.html" class="nav-link">

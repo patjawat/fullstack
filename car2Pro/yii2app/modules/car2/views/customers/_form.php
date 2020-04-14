@@ -72,7 +72,6 @@ $form = ActiveForm::begin([
 ])->label();
 ?>
                 <?=$form->field($model, 'fullname')->textInput()?>
-
                 <?=$form->field($model, 'cid')->widget(MaskedInput::className(), ['mask' => '9-9999-99999-99-9'])?>
                 <?=$form->field($model, 'birthdate')->widget(DateControl::classname(), ['type' => DateControl::FORMAT_DATE,
     'language' => 'th',
@@ -84,27 +83,84 @@ $form = ActiveForm::begin([
     ],
 ]);
 ?>
+                <?=$form->field($model, 'phone')->textInput()?>
 
 
-                <div class="form-group">
-                    <?=Html::submitButton('Save', ['class' => 'btn btn-success'])?>
-                </div>
+
+
             </div>
             <div class="col-6">
 
                 <?=$form->field($model, 'branch_id')->textInput()?>
-
-                <?=$form->field($model, 'address')->textInput(['maxlength' => true])?>
+                <?=$form->field($model, 'zip_code')->textInput(['maxlength' => true])?>
+                <?=$form->field($model, 'amphure_name')->textInput(['maxlength' => true, 'readOnly' => true])?>
+                <?=$form->field($model, 'province_name')->textInput(['maxlength' => true, 'readOnly' => true])?>
+                <div class="hide-address">
+                    <?=$form->field($model, 'address')->textArea(['rows' => 5]);?>
+                </div>
+                <?=$form->field($model, 'amphure_id')->hiddenInput(['maxlength' => true])->label(false);?>
+                <?=$form->field($model, 'province_id')->hiddenInput(['maxlength' => true])->label(false);?>
             </div>
         </div>
-
-
-        Start creating your amazing application!
     </div>
     <!-- /.card-body -->
     <div class="card-footer">
+        <div class="form-group">
+            <?php if ($model->isNewRecord): ?>
+            <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success'])?>
+            <?php else: ?>
+            <?=Html::submitButton('<i class="fas fa-edit"></i> แก้ไข', ['class' => 'btn btn-warning'])?>
 
+            <?php endif;?>
+            <?=Html::a('<i class="fas fa-redo-alt"></i> ยกเลิก', ['/car2/customers'], ['class' => 'btn btn-default'])?>
+        </div>
     </div>
     <!-- /.card-footer-->
 </div>
 <?php ActiveForm::end();?>
+<?php
+$js = <<< JS
+checkAddress();
+$('#customers-zip_code').keyup(function (e) {
+    var value = $(this).val();
+    console.log(value)
+    getAddress(value)
+});
+
+function getAddress(value){
+    $.ajax({
+        type: "get",
+        url: "index.php?r=car2/customers/get-address",
+        data: {zip_code:value},
+        dataType: "json",
+        success: function (response) {
+            checkAddress();
+            if(response){
+                $('#customers-amphure_id').val(response.amphure_id)
+                $('#customers-amphure_name').val(response.amphure_name)
+                $('#customers-province_id').val(response.province_id)
+                $('#customers-province_name').val(response.province_name)
+                $('.hide-address').show();
+
+            }else{
+                $('#customers-amphure_id').val(null)
+                $('#customers-amphure_name').val(null)
+                $('#customers-province_id').val(null)
+                $('#customers-province_name').val(null)
+                $('.hide-address').hide();
+            }
+        }
+    });
+}
+
+function checkAddress(){
+        if($('#customers-province_id').val() === ''){
+            $('.hide-address').hide();
+        }else{
+            $('.hide-address').show();
+        }
+    }
+
+JS;
+$this->registerJs($js);
+?>
