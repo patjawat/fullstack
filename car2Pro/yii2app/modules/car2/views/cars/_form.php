@@ -10,7 +10,6 @@ use yii\helpers\Html;
 /* @var $model app\modules\car2\models\Cars */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?=$model->branch_id;?>
 <div class="card">
     <div class="card-header">
         <h3 class="card-title"><i class="fas fa-list-ul"></i> รายการ</h3>
@@ -33,7 +32,7 @@ use yii\helpers\Html;
     // ],
     // 'layout' => 'horizontal',
 ]);?>
-        <?=$form->field($model, 'ref')->textInput(['maxlength' => 50])->label(false);?>
+        <?=$form->field($model, 'ref')->hiddenInput(['maxlength' => 50])->label(false);?>
         <div class="row">
             <div class="col-6">
                 <?php echo $form->field($model, 'model_id')->widget(Select2::classname(), [
