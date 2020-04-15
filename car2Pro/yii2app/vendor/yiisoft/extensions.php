@@ -483,13 +483,4 @@ return array (
       '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf/src',
     ),
   ),
-  'coderius/yii2-hit-counter' => 
-  array (
-    'name' => 'coderius/yii2-hit-counter',
-    'version' => '1.0.2.2',
-    'alias' => 
-    array (
-      '@coderius/hitCounter' => $vendorDir . '/coderius/yii2-hit-counter/src',
-    ),
-  ),
 );
