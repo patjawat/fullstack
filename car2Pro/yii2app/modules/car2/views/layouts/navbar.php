@@ -7,7 +7,7 @@ use app\components\SystemHelper;
     <div class="container">
         <?=Html::a(Html::img('@web/img/AdminLTELogo.png', [
     'class' => 'brand-image img-circle elevation-3',
-    'style' => 'opacity: .8']) . '<span class="brand-text font-weight-light">'.SystemHelper::getTitle().'</span>',
+    'style' => 'opacity: .8']) . '<span class="brand-text font-weight-light">'.SystemHelper::getSetting('title').'</span>',
     ['/car2'], ['class' => 'navbar-brand']);?>
 
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"

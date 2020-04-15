@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cars-view">
 
     <p>
+        <?= Html::a('หน้าหลัก', ['index', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+        <?= Html::a('สร้างใหม่', ['create'], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',

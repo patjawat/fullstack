@@ -13,30 +13,30 @@ use yii\bootstrap4\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
     <div class="row">
         <div class="col-6">
-            <?= $form->field($model, 'title') ?>
+            <?= $form->field($model, 'data_json[title]')->label('ชื่อเว็บ') ?>
         </div>
         <div class="col-6">
-            <?= $form->field($model, 'phone') ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <?= $form->field($model, 'facebook_link') ?>
-        </div>
-        <div class="col-6">
-            <?= $form->field($model, 'facebook_name') ?>
+            <?= $form->field($model, 'data_json[phone]')->label('โทรสัพท์') ?>
         </div>
     </div>
     <div class="row">
         <div class="col-6">
-            <?= $form->field($model, 'line_link') ?>
+            <?= $form->field($model, 'data_json[facebook_link]')->label('Facebook Link') ?>
         </div>
         <div class="col-6">
-            <?= $form->field($model, 'line_name') ?>
+            <?= $form->field($model, 'data_json[facebook_name]')->label('ชื่อ Facebook') ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <?= $form->field($model, 'data_json[line_link]')->label('Line Link') ?>
+        </div>
+        <div class="col-6">
+            <?= $form->field($model, 'data_json[line_name]')->label('ชื่อไลน์') ?>
         </div>
     </div>
 
-    <?= $form->field($model, 'address')->widget(CKEditor::className(),[
+    <?= $form->field($model, 'data_json[address]')->widget(CKEditor::className(),[
     'editorOptions' => [
         'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
         'inline' => false, //по умолчанию false

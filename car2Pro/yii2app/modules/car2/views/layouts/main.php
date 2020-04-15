@@ -71,7 +71,7 @@ Modal::end();
 ?>
     <div class="wrapper">
         <?=$this->render('navbar');?>
-        <?php if(Yii::$app->controller->id == 'default'):?>
+        <?php if (Yii::$app->controller->id == 'default'): ?>
         <?=$this->render('slide');?>
         <?php endif;?>
 
@@ -90,7 +90,7 @@ Modal::end();
                 <div class="row">
                     <div class="col-4">
                         <h4>Address</h4>
-                        <?=SystemHelper::getAddress()?>
+                        <?=SystemHelper::getSetting('address')?>
                     </div>
                     <div class="col-4">
                         <h4>Follw Use On</h4>
@@ -105,7 +105,7 @@ Modal::end();
                                             <span style="color: rgb(0, 185, 0); font-size:20px;">
                                                 OFFICIAL LINE
                                                 ID</span><br>
-                                            <?=Html::a('<span style="color:#FFFFFF;">' . SystemHelper::getLineName() . '</span>', 'http://line.me/ti/p/~' . SystemHelper::getLine(), ['target' => '_blank'])?>
+                                            <?=Html::a('<span style="color:#FFFFFF;">' . SystemHelper::getSetting('line_name') . '</span>', 'http://line.me/ti/p/~' . SystemHelper::getSetting('line_link'), ['target' => '_blank'])?>
                                         </span>
                                     </td>
                                 </tr>
@@ -114,14 +114,14 @@ Modal::end();
                                         <img alt="" src="/img/fb.png" style="width: 43px; height: 43px;">
                                     </td>
                                     <td>
-                                        <?=Html::a('<span style="color:#FFFFFF;">' . SystemHelper::getFacebookName() . '</span>', SystemHelper::getFacebook(), ['target' => '_blank'])?>
+                                        <?=Html::a('<span style="color:#FFFFFF;">' . SystemHelper::getSetting('facebook_name') . '</span>', SystemHelper::getSetting('facebook_link'), ['target' => '_blank'])?>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-4">
-                        <h4><i class="fas fa-mobile-alt"></i> <?=SystemHelper::getPhone()?></h4>
+                        <h4><i class="fas fa-mobile-alt"></i> <?=SystemHelper::getSetting('phone')?></h4>
                     </div>
                 </div>
                 <!-- To the right -->

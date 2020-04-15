@@ -1,6 +1,8 @@
 <?php
 use app\modules\car2\models\Bands;
+use app\modules\car2\models\Cars;
 use app\modules\car2\models\Types;
+use yii\helpers\Html;
 ?>
 <style>
 .zoom {
@@ -21,6 +23,11 @@ use app\modules\car2\models\Types;
 
 .zoom2:hover {
     transform: scale(1.05);
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: 150px;
 }
 </style>
 <div class="container">
@@ -56,15 +63,17 @@ use app\modules\car2\models\Types;
 
     <div class="container">
         <div class="row">
-            <?php for ($i = 1; $i <= 5; $i++): ?>
+            <?php foreach (Cars::find()->all() as $car): ?>
 
             <div class="col-md-3">
                 <div class="card profile-card-2 shadow-lg  mb-5 p-1 bg-white rounded zoom2">
 
                     <div class="card-img-block">
-                        <img class="img-fluid"
-                            src="https://images.pexels.com/photos/877695/pexels-photo-877695.jpeg?auto=compress&cs=tinysrgb&h=350"
-                            alt="Card image cap" />
+                        <?=Html::img('@web/cars/' . $car->photo, [
+    'class' => 'img-fluid',
+    'height' => '300px',
+]);?>
+
                     </div>
                     <div class="card-body pt-5">
                         <div class="ribbon-wrapper ribbon-lg">
@@ -87,7 +96,7 @@ use app\modules\car2\models\Types;
                     </div>
                 </div>
             </div>
-            <?php endfor;?>
+            <?php endforeach;?>
         </div>
     </div>
 </div>

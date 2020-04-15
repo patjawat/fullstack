@@ -2,12 +2,13 @@
 
 namespace app\modules\car2\controllers;
 
-use Yii;
 use app\modules\car2\models\Cars;
 use app\modules\car2\models\CarsSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CarsController implements the CRUD actions for Cars model.
@@ -68,14 +69,21 @@ class CarsController extends Controller
     public function actionCreate()
     {
         $model = new Cars();
-        $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(),10);
-        if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $file = UploadedFile::getInstance($model, 'photo_temp');
+            if ($file) {
+                $model->photo = $model->upload($model, 'photo_temp');
+            }
+            $model->save(false);
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
     }
 
     /**
@@ -89,13 +97,18 @@ class CarsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $file = UploadedFile::getInstance($model, 'photo_temp');
+            if ($file) {
+                $model->photo = $model->upload($model, 'photo_temp');
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -107,11 +120,17 @@ class CarsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = $this->findModel($id);
+        $filename = $model->getUploadUrl() . $model->photo;
+        if ($model->photo) {
+            $file = Yii::$app->basePath . '/web' . $model->getUploadUrl() . $model->photo;
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+        $model->delete();
         return $this->redirect(['index']);
     }
-
     /**
      * Finds the Cars model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

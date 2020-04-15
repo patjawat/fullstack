@@ -2,10 +2,10 @@
 
 namespace app\modules\car2\controllers;
 use Yii;
-use yii\web\Controller;
+// use yii\web\Controller;
 use app\modules\car2\models\Cars;
 use app\modules\car2\models\CarsSearch;
-
+use app\components\LogController as Controller;
 /**
  * Default controller for the `car2` module
  */

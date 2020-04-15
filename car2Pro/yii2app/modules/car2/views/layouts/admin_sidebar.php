@@ -64,6 +64,9 @@ use yii\helpers\Html;
                     <?=Html::a('<i class="fas fa-cogs"></i> <p>ตั้งค่าระบบ</p>', ['/car2/setting/update','id'=>1], ['class' => Yii::$app->controller->id == 'setting' ? 'nav-link active' : 'nav-link']);?>
                 </li>
                 <li class="nav-item">
+                    <?=Html::a('<i class="fas fa-images"></i> <p>Slide Show</p>', ['/car2/carousel'], ['class' => Yii::$app->controller->id == 'carousel' ? 'nav-link active' : 'nav-link']);?>
+                </li>
+                <li class="nav-item">
                     <a href="../widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>

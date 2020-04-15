@@ -383,15 +383,6 @@ return array (
       '@kartik/checkbox' => $vendorDir . '/kartik-v/yii2-checkbox-x/src',
     ),
   ),
-  'kartik-v/yii2-mpdf' => 
-  array (
-    'name' => 'kartik-v/yii2-mpdf',
-    'version' => '1.0.5.0',
-    'alias' => 
-    array (
-      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf/src',
-    ),
-  ),
   'mdmsoft/yii2-admin' => 
   array (
     'name' => 'mdmsoft/yii2-admin',
@@ -482,5 +473,23 @@ return array (
       '@mdm/autonumber' => $vendorDir . '/mdmsoft/yii2-autonumber',
     ),
     'bootstrap' => 'mdm\\autonumber\\Bootstrap',
+  ),
+  'kartik-v/yii2-mpdf' => 
+  array (
+    'name' => 'kartik-v/yii2-mpdf',
+    'version' => '1.0.6.0',
+    'alias' => 
+    array (
+      '@kartik/mpdf' => $vendorDir . '/kartik-v/yii2-mpdf/src',
+    ),
+  ),
+  'coderius/yii2-hit-counter' => 
+  array (
+    'name' => 'coderius/yii2-hit-counter',
+    'version' => '1.0.2.2',
+    'alias' => 
+    array (
+      '@coderius/hitCounter' => $vendorDir . '/coderius/yii2-hit-counter/src',
+    ),
   ),
 );

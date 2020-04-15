@@ -21,11 +21,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <?=DetailView::widget([
     'model' => $model,
     'attributes' => [
-        'title',
-        'phone',
-        'line_name',
-        'facebook_name',
-        'address:html',
+        'data_json.title',
+        'data_json.phone',
+        'data_json.line_name',
+        'data_json.facebook_name',
+        'data_json.address:html',
     ],
 ])?>
 

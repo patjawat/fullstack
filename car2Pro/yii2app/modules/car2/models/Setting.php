@@ -3,6 +3,7 @@
 namespace app\modules\car2\models;
 
 use Yii;
+use yii\helpers\Json;
 
 /**
  * This is the model class for table "car2_setting".
@@ -36,7 +37,7 @@ class Setting extends \yii\db\ActiveRecord
         return [
             [['id'], 'required'],
             [['id'], 'integer'],
-            [['address', 'title','phone','facebook_link','line_link','facebook_name','line_name'], 'string', 'max' => 255],
+            [['data_json'], 'safe'],
             [['id'], 'unique'],
         ];
     }
@@ -48,13 +49,23 @@ class Setting extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'address' => 'Address',
-            'title' => 'ชื่อกิจการ',
-            'phone' =>'โทรศัพท์'
-            ,'facebook_link' => 'Facebook Link',
-            'line_link' => 'Line Link',
-            'facebook_name' => 'ชื่อ Facebook',
-            'line_link' => 'ชื่อ Line@'
+ 
         ];
+    }
+
+    public function afterFind()
+    {
+        $this->data_json = Json::decode($this->data_json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return parent::afterFind();
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->data_json = Json::encode($this->data_json, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
