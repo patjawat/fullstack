@@ -21,7 +21,7 @@ use yii\helpers\Html;
     </div>
     <div class="card-body">
         <?=$form->field($model, 'name')->textInput(['maxlength' => true])?>
-        <?=$form->field($model, 'logo_temp')->fileInput(['id' => 'profile-img'])->label(false);?>
+        <?=$form->field($model, 'photo_temp')->fileInput(['id' => 'profile-img'])->label(false);?>
 
         <div class="form-group">
             <?=Html::submitButton('<i class="fas fa-check"></i> บันทึก', ['class' => 'btn btn-success'])?>
