@@ -47,7 +47,7 @@ services:
         ]
 
     ports:
-        - 3307:3306
+        - 3306:3306
     environment:
         - TZ=Asia/Bangkok
         - MYSQL_ROOT_PASSWORD=docker
