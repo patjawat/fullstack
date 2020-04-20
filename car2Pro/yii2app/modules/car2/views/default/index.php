@@ -38,8 +38,8 @@ use yii\helpers\Html;
                 <?php foreach (Types::find()->all() as $model): ?>
                 <td style="text-align: center;">
                     <a href="/product-cat/36149/36149/รถตู้.html" style="text-align: center;">
-                        <img src="data:image/jpeg;base64,<?=base64_encode($model->photo)?>" id="imgFormDb"
-                            class="img-responsive zoom" />
+
+                        <?=Html::img($model->getPhotoViewer(),['class' => 'img-responsive zoom']);?>
                     </a>
                     <br>
                     <span style="font-size:20px;">
@@ -107,8 +107,8 @@ use yii\helpers\Html;
     <div class="row">
         <?php foreach (Bands::find()->all() as $model): ?>
         <div class="col-2">
-            <img src="data:image/jpeg;base64,<?=base64_encode($model->logo)?>" class="img-responsive zoom"
-                style="width:100px;" />
+            <?php //Html::img($model->getPhotoViewer());?>
+            <?=Html::img($model->getPhotoViewer(),['class' => 'img-responsive zoom','width' =>'100px;']);?>
         </div>
 
         <?php endforeach;?>

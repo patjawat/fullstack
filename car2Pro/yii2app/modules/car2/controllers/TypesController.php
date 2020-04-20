@@ -2,12 +2,12 @@
 
 namespace app\modules\car2\controllers;
 
-use Yii;
 use app\modules\car2\models\Types;
 use app\modules\car2\models\TypesSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**
@@ -73,14 +73,17 @@ class TypesController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $file = UploadedFile::getInstance($model, 'photo_temp');
-
             if ($file) {
-                $model->photo = file_get_contents($file->tempName);
+                //$model->photo = file_get_contents($file->tempName); //# upload to DB
+                $model->photo = $model->upload($model, 'photo_temp');
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
 
         return $this->render('create', [
             'model' => $model,
@@ -97,20 +100,19 @@ class TypesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post())) {
             $file = UploadedFile::getInstance($model, 'photo_temp');
-
             if ($file) {
-                $model->photo = file_get_contents($file->tempName);
+                //$model->photo = file_get_contents($file->tempName); //# upload to DB
+                $model->photo = $model->upload($model, 'photo_temp');
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**

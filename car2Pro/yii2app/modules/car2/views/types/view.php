@@ -25,11 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?php if ($model->photo) : ?>
-    <img src="data:image/jpeg;base64,<?= base64_encode($model->photo) ?>" height="40%" width="40%" id="imgFormDb" />
-    <?php else : ?>
-    <?= Html::img('@web/images/photo_thumbnail.svg'); ?>
-    <?php endif; ?>
+    <?=$model->getPhotoViewer();?>
+
+
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

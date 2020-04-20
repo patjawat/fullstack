@@ -79,10 +79,11 @@ class BandsController extends Controller
         $model = new Bands();
 
         if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'logo_temp');
+            $file = UploadedFile::getInstance($model, 'photo_temp');
 
             if ($file) {
-                $model->logo = file_get_contents($file->tempName);
+                // $model->logo = file_get_contents($file->tempName);
+                $model->photo = $model->upload($model, 'photo_temp');
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
@@ -105,10 +106,11 @@ class BandsController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            $file = UploadedFile::getInstance($model, 'logo_temp');
+            $file = UploadedFile::getInstance($model, 'photo_temp');
 
             if ($file) {
-                $model->logo = file_get_contents($file->tempName);
+                // $model->logo = file_get_contents($file->tempName);
+                $model->photo = $model->upload($model, 'photo_temp');
             }
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
