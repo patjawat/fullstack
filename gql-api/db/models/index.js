@@ -21,7 +21,8 @@ let db = {
     User: sequelize.import('./user'),
     Article: sequelize.import('./article'),
     Tag:sequelize.import('./tag'),
-    Product:sequelize.import('./product')
+    Product:sequelize.import('./product'),
+    Patient:sequelize.import('./Patient')
 };
 
 Object.keys(db).forEach((modelName) => {
