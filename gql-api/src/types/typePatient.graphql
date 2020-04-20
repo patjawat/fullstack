@@ -1,0 +1,7 @@
+type Patient{
+    id:ID!
+    pname:String!
+    fname:String!
+    lname:String!
+    birthdate:Date!
+}
