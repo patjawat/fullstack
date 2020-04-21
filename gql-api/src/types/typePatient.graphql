@@ -3,5 +3,11 @@ type Patient{
     pname:String!
     fname:String!
     lname:String!
-    birthdate:Date!
+    birthdate:String!
+}
+type Query{
+    allPatient:[Patient]!
+}
+type Mutation{
+    
 }
