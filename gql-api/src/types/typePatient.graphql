@@ -1,13 +1,11 @@
 type Patient{
     id:ID!
-    pname:String!
-    fname:String!
-    lname:String!
-    birthdate:String!
+    fullname:String!
 }
 type Query{
-    allPatient:[Patient]!
+    allPatient:[Patient!]
 }
+
 type Mutation{
-    
+    createPatient:{ fullname:String!}:Patient!
 }

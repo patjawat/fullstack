@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize';
 import path from 'path';
-const env = process.env.NODE_ENV || "development";
+// const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "mariadb";
 const config    = require(path.join(__dirname, '../../', 'config', 'database.json'))[env];
 
 
@@ -10,7 +11,7 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   var sequelize = new Sequelize(config.database, config.username, config.password,{
-    dialect:"postgres",
+    dialect:config.dialect,
     define:{
       underscored: true,
     },
