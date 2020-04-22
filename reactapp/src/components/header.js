@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom";
 
@@ -21,10 +18,13 @@ const Header = (props) => {
       <Link className="nav-link" to="/">Home</Link>
       </li>
       <li className="nav-item">
-      <Link className="nav-link" to="/about">About</Link>
+      <Link className="nav-link" to="/users">User</Link>
       </li>
       <li className="nav-item">
       <Link className="nav-link" to="/book">Book</Link>
+      </li>
+      <li className="nav-item">
+      <Link className="nav-link" to="/patient">Patient</Link>
       </li>
       <li className="nav-item dropdown">
         <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

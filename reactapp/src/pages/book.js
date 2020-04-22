@@ -1,26 +1,46 @@
 import React, { useEffect, useState } from 'react'
+import { gql } from 'apollo-boost';
+import { useQuery } from '@apollo/react-hooks';
+
+
+const EXCHANGE_RATES = gql`
+  {
+    rates(currency: "USD") {
+      currency
+      rate
+      name
+    }
+  }
+`;
+
 
 const Book = () => {
-    const usersData = [
-        { id: 1, name: 'Tania', username: 'floppydiskette' },
-        { id: 2, name: 'Craig', username: 'siliconeidolon' },
-        { id: 3, name: 'Ben', username: 'benisphere' },
-      ]
-    const [users,setUsers] = useState(usersData);
     return (
         <div className="container">
-            <h1>CRUD App with Hooks</h1>
-            <div className="row">
-                <div className="col-6">
-                    <h2>Add user</h2>
-                </div>
-                <div className="col-6">
-                    <h2>View users</h2>
-                </div>
+            <div>
+                <h2>My first Apollo app 🚀</h2>
+                <ExchangeRates />
             </div>
-
         </div>
     )
+    function ExchangeRates() {
+        const { loading, error, data } = useQuery(EXCHANGE_RATES);
+
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error :(</p>;
+
+        return data.rates.map(({ currency, rate, name }) => (
+            <div key={currency}>
+                <p>
+                    {currency}: {rate} : {name}
+                </p>
+            </div>
+        ));
+    }
 }
+
+
+
+
 
 export default Book

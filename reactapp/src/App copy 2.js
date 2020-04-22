@@ -11,13 +11,13 @@ import About from './components/about'
 import Book from './pages/book'
 import User from './pages/users/user'
 import Patient from './pages/patient/patient'
-
+import { DefaultLayout } from './components';
 function App() {
   return (
     <div>
        <Router>
 <Header />
-      <div className="container mt-3">
+      <div>
 
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
