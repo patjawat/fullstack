@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import PatientForm from './PatientForm'
+import {createPatient} from '../../gql/query/'
 const EXCHANGE_RATES = gql`
 {
     allPatient{
@@ -21,7 +22,7 @@ const Patient = props =>{
      )
 
      function Items() {
-        const { loading, error, data } = useQuery(EXCHANGE_RATES);
+        const { loading, error, data } = useQuery(createPatient);
         if (loading) return <p>Loading...</p>;
         if (error) return <p>Error :(</p>;
        return <ViewTables data={data.allPatient}/>
