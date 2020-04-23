@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation,useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 
 
@@ -10,6 +10,7 @@ const PatientForm = (props) => {
     const ADD_TODO = gql`
     mutation createPatient($fullname: String!) {
         createPatient(fullname:$fullname ) {
+        id
         fullname
       }
     }
@@ -24,11 +25,9 @@ const PatientForm = (props) => {
   }
 `;
 
-
     const initialFormState = {}
     const [patient, setPatient] = useState(initialFormState)
     const [addTodo, { data }] = useMutation(ADD_TODO);
-    const [updateTodo] = useMutation(UPDATE_TODO);
 
     const handleInputChange = e => {
         const { name, value } = e.target
@@ -41,8 +40,12 @@ const PatientForm = (props) => {
             <form
                 onSubmit={e => {
                     e.preventDefault();
-                    addTodo({ variables: patient });
-                    patient:{}
+                    // addTodo({ variables: patient }).then(res =>{
+                    //     console.log(res.data.createPatient)
+                    // });
+                    if (!patient.fullname) return
+                    addTodo({ variables: patient,refetchQueries:[{query:EXCHANGE_RATES}] }).then(res =>{
+                    });
                 }}
             >
                 <div className="form-group">
