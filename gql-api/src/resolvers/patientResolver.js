@@ -9,5 +9,12 @@ export default  {
         createPatient: (_, args, { models }) => {
             return models.Patient.create(args)
         },
+        deletePatient: (root, {id}, { models }, info) =>{
+            return models.Patient.destroy({
+                where: {
+                    id: id
+                }
+            });
+        },
     }
 }

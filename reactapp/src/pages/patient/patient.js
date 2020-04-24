@@ -1,16 +1,14 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery,useMutation } from '@apollo/react-hooks';
+import { Mutation } from '@apollo/react-components';
 import PatientForm from './PatientForm'
-import {createPatient} from '../../gql/query/'
-const EXCHANGE_RATES = gql`
-{
-    allPatient{
-        id
-      fullname
-    }
-  }
-`;
+import {ALL_PATIENT} from '../../gql/query/'
+import {DELETE_PATIENT} from '../../gql/mutation/'
+
+// const [deletePatient, { data }] = useMutation(DELETE_PATIENT);
+
+
 
 const Patient = props =>{
      return(
@@ -22,23 +20,27 @@ const Patient = props =>{
      )
 
      function Items() {
-        const { loading, error, data } = useQuery(createPatient);
-        if (loading) return <p>Loading...</p>;
-        if (error) return <p>Error :(</p>;
-       return <ViewTables data={data.allPatient}/>
-    }
-
+         
+         const { loading, error, data } = useQuery(ALL_PATIENT);
+         if (loading) return <p>Loading...</p>;
+         if (error) return <p>Error :(</p>;
+            return <ViewTables data={data.allPatient}/>
+        }
+        
 }
 
 export default Patient;
 
 const ViewTables = (props) => {
+    const [deletePatient,{data}] = useMutation(DELETE_PATIENT);
+
 return(
     <table className="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>id</th>
                 <th>Fullname</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -46,6 +48,11 @@ return(
             <tr key={id}>
                 <td>{id}</td>
                 <td>{fullname}</td>
+                <td>
+                    <button className="btn btn-warning">Edit</button>{' '}
+                   <DeleteTodo id={id}/>
+                   
+                </td>
             </tr>
             ))}
         </tbody>
@@ -54,6 +61,40 @@ return(
 )
 }
 
+// const DeleteItem = ({id}) => {
+//     <Mutation mutation={DELETE_PATIENT}>
+//         {mutation => (<button>
+
+//         </button>)}
+//     </Mutation>
+// }
+
+const DeleteTodo = ({id}) => {
+    return (
+      <Mutation mutation={DELETE_PATIENT}
+        // update={(cache, { data: { deletePatient } }) => {
+        //   const { ALL_PATIENT } = cache.readQuery({ query: ALL_PATIENT });
+        //   cache.writeQuery({
+        //     query: GET_TODOS,
+        //     data: { allTodos: allTodos.filter(e => e.id !== id)}
+        //   });
+        // }}
+        >
+        {(deletePatient, { data }) => (
+          <button
+          className="btn btn-danger"
+            onClick={e => {
+                deletePatient({
+                variables: {
+                  id
+                }
+              });
+            }}
+          >Delete</button>            
+        )}
+      </Mutation>
+    );
+  };
 // methods: {
 //     postLogin() {
 //       this.$apollo

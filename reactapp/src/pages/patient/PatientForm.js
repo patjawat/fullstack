@@ -1,33 +1,19 @@
 import React, { Component, useState } from 'react';
 import { useMutation,useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import {CREATE_PATIENT} from '../../gql/mutation/'
+import {ALL_PATIENT} from '../../gql/query/'
+
 
 
 
 
 const PatientForm = (props) => {
 
-    const ADD_TODO = gql`
-    mutation createPatient($fullname: String!) {
-        createPatient(fullname:$fullname ) {
-        id
-        fullname
-      }
-    }
-  `;
-
-  const EXCHANGE_RATES = gql`
-{
-    allPatient{
-        id
-      fullname
-    }
-  }
-`;
 
     const initialFormState = {}
     const [patient, setPatient] = useState(initialFormState)
-    const [addTodo, { data }] = useMutation(ADD_TODO);
+    const [addTodo, { data }] = useMutation(CREATE_PATIENT);
 
     const handleInputChange = e => {
         const { name, value } = e.target
@@ -44,7 +30,7 @@ const PatientForm = (props) => {
                     //     console.log(res.data.createPatient)
                     // });
                     if (!patient.fullname) return
-                    addTodo({ variables: patient,refetchQueries:[{query:EXCHANGE_RATES}] }).then(res =>{
+                    addTodo({ variables: patient,refetchQueries:[{query:ALL_PATIENT}] }).then(res =>{
                     });
                 }}
             >
