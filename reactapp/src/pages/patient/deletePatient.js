@@ -1,13 +1,17 @@
 import React from "react";
 import { Button } from 'reactstrap';
 import { Mutation } from "react-apollo";
-import { DELETE_PATIENT } from "../../gql/mutation/patient";
-import { ALL_PATIENT } from "../../gql/query/";
+import { ALL_PATIENT,DELETE_PATIENT } from "../../queries";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
-
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 1000,
+});
 
 const DeletePatient = (props) => {
   const id = props.id;
@@ -22,20 +26,20 @@ const DeletePatient = (props) => {
           onClick={(e) => {
             e.preventDefault();
             MySwal.fire({
-              title: 'Are you sure?',
+              title: 'ลอข้อมูลนี้?',
               text: "You won't be able to revert this!",
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Yes, delete it!'
+              cancelButtonText:'ยกเลิก',
+              confirmButtonText: 'ใช่ ต้องการลบ!'
             }).then((result) => {
               if (result.value) {
-                MySwal.fire(
-                  'Deleted!',
-                  'Your file has been deleted.',
-                  'success'
-                )
+                Toast.fire({
+                  type: 'success',
+                  title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+                })
                 deletePatient({
                   variables: { id: id },
                   refetchQueries: [{ query: ALL_PATIENT }],
@@ -49,24 +53,5 @@ const DeletePatient = (props) => {
   );
 }
 
-const confirmDelete = () => {
-  MySwal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.value) {
-      MySwal.fire(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-      )
-    }
-  })
-}
 
 export default DeletePatient;

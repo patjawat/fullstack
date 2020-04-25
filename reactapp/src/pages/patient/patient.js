@@ -1,37 +1,37 @@
-import React, { useContext } from "react";
-// import { gql } from 'apollo-boost';
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-// import { Mutation } from '@apollo/react-components';
-import PatientForm from "./PatientForm";
-import { ALL_PATIENT } from "../../gql/query/";
-import { DELETE_PATIENT } from "../../gql/mutation/";
+import { ALL_PATIENT,CREATE_PATIENT } from "../../queries";
 import { Button } from "reactstrap";
 import DeletePatient from "./deletePatient";
+import PatientForm from "./PatientForm";
 import { CounterContextProvider } from "./hooks";
-import Patjawat from "./patjawat";
 const Patient = () => {
-  return (
-    <CounterContextProvider>
-      <h1 className="text-center text-primary">Patient</h1>
-      <PatientForm />
-      <Items />
-      <Patjawat />
-    </CounterContextProvider>
-  );
+  const [patient, setPatient] = useState({})
+  const [action,setAction] = useState(false)
+  const [addTodo] = useMutation(CREATE_PATIENT);
 
-  function Items() {
-    const { loading, error, data } = useQuery(ALL_PATIENT);
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
-    return <ViewTables data={data.allPatient} />;
+  const handleInputChange = e => {
+    const { name, value } = e.target
+    setPatient({ ...patient, [name]: value })
   }
-};
 
-export default Patient;
 
-const ViewTables = (props) => {
-  return (
-    <table className="table table-bordered table-hover">
+  const onSave = e => {
+    if (!patient.fullname) return
+    addTodo({ variables: patient, refetchQueries: [{ query: ALL_PATIENT }] }).then(res => {
+      setPatient({ fullname: '' })
+    });
+    console.log(patient)
+  }
+
+
+const Items = () =>{
+  const { loading, error, data } = useQuery(ALL_PATIENT);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+  return(
+    <div>
+      <table className="table table-bordered table-hover">
       <thead>
         <tr>
           <th>id</th>
@@ -40,16 +40,46 @@ const ViewTables = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.data.map(({ id, fullname }) => (
-          <tr key={id}>
-            <td>{id}</td>
-            <td>{fullname}</td>
+        {data.allPatient.map((item, i) => {
+          return (
+            <tr key={item.id}>
+            <td>{item.id}</td>
+            <td>{item.fullname}</td>
             <td>
-              <Button color="warning">Edit</Button> <DeletePatient id={id} />
+            <Button onClick={()=>{
+                    console.log(item)
+                    setPatient(item)
+                    setAction(true)
+                }}>แก้ไข</Button>{' '}
+                
+               <DeletePatient id={item.id} />
             </td>
           </tr>
-        ))}
+          )
+        }
+        
+        )}
       </tbody>
     </table>
+    </div>
+  )
+}
+
+  return (
+    <CounterContextProvider>
+      <h1 className="text-center text-primary">Patient</h1>
+      <PatientForm
+        patient={patient}
+        handleInputChange={handleInputChange}
+        onSave={onSave}
+        action={action}
+       
+      />
+      <Items />
+    </CounterContextProvider>
   );
 };
+
+export default Patient;
+
+
