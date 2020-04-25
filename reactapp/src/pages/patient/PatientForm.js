@@ -19,26 +19,23 @@ const PatientForm = (props) => {
         const { name, value } = e.target
         setPatient({ ...patient, [name]: value })
     }
+    const onSave = e => {
+        if (!patient.fullname) return
+        addTodo({ variables: patient,refetchQueries:[{query:ALL_PATIENT}] }).then(res =>{
+            
+        });
+        // setPatient()
+    }
 
     return (
         <div className="mb-3">
             {JSON.stringify(patient)}
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    if (!patient.fullname) return
-                    addTodo({ variables: patient,refetchQueries:[{query:ALL_PATIENT}] }).then(res =>{
-                        
-                    
-                    });
-                }}
-            >
                 <div className="form-group">
                     <label for="">ชื่อ-นามสกุล</label>
-                    <input type="text" name="fullname" className="form-control" placeholder="ระบุชื่อ-นามสกุล" onChange={handleInputChange} />
+                    <input type="text" name="fullname" value={patient.fullname} className="form-control" placeholder="ระบุชื่อ-นามสกุล" onChange={handleInputChange} />
                 </div>
-                <button type="submit" className="btn btn-primary">Submit</button>
-            </form>
+                <button type="submit" className="btn btn-primary" onClick={onSave}>Submit</button>
+           
         </div>
     )
 
