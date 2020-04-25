@@ -1,8 +1,7 @@
 export default  {
     Query:{
         allPatient:(_,args,{models}) => {
-            return models.Patient.findAll({
-            })
+            return models.Patient.findAll({})
         }
     },
     Mutation:{
@@ -15,6 +14,7 @@ export default  {
                     id: id
                 }
             });
+            // return models.Patient.findAll({})
         },
     }
 }

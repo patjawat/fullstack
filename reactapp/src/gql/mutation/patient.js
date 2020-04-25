@@ -12,10 +12,15 @@ mutation createPatient($fullname: String!) {
 
 
 export const DELETE_PATIENT = gql`
-mutation{
-    deletePatient(
-      id:$id
-    )
-  }
+mutation deletePatient($id:ID!){
+  deletePatient(id: $id)
+}
 `;
+// export const DELETE_PATIENT = gql`
+// mutation{
+//   deletePatient(id: $id){
+//     id
+//   }
+// }
+// `;
 

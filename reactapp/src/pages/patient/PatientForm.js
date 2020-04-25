@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import { useMutation,useQuery } from '@apollo/react-hooks';
+import React, {  useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {CREATE_PATIENT} from '../../gql/mutation/'
 import {ALL_PATIENT} from '../../gql/query/'
@@ -26,11 +26,10 @@ const PatientForm = (props) => {
             <form
                 onSubmit={e => {
                     e.preventDefault();
-                    // addTodo({ variables: patient }).then(res =>{
-                    //     console.log(res.data.createPatient)
-                    // });
                     if (!patient.fullname) return
                     addTodo({ variables: patient,refetchQueries:[{query:ALL_PATIENT}] }).then(res =>{
+                        
+                    
                     });
                 }}
             >

@@ -1,4 +1,4 @@
-import React, { Component,useState } from 'react';
+import React, {useState } from 'react';
 
 const AddUserForm = (props) => {
     const initialFormState = { id: null, name: '', username: '' }
