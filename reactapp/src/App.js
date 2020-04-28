@@ -56,10 +56,14 @@ export default function App() {
       dispatch
     }}
   >
+ <div className="containers">
+        <div className="app-wrapperx">
 
-    {/* <Router>
+       
+    <Router>
+
       <AuthButton />
-      <div className="container">
+      <div>
         <Switch>
           <PrivateRoute path="/about">
             <About />
@@ -75,7 +79,9 @@ export default function App() {
           </PrivateRoute>
         </Switch>
       </div>
-    </Router> */}
+    </Router>
+    </div>
+    </div>
     </AuthContext.Provider>
   );
 }
@@ -96,7 +102,9 @@ function AuthButton() {
   let history = useHistory();
 
   return fakeAuth.isAuthenticated ? (
-    <Header />
+    // <Header />
+    <>
+    </>
   ) : (
       <LoginPage />
     );
@@ -132,48 +140,27 @@ function LoginPage() {
     fakeAuth.authenticate(() => {
       history.replace(from);
     });
-    authentication({ variables:{username:'admin',password:'112233'}}).then(res => {
-      console.log(res.data.login)
-    });
+    // authentication({ variables:{username:'admin',password:'112233'}}).then(res => {
+    //   console.log(res.data.login)
+    // });
   };
 
   return (
     <div>
-      <section className="login-page flex-center-center py-5 bg-light">
-        <div className="w-100 mx-auto px-2" style={{ maxWidth: '400px' }}>
-          <div className="text-center text-gray">
-            <h2 className="weight-500 mb-1">Login</h2>
-            <p className="h4 mb-2 weight-300">Please login to proceed</p>
-          </div>
-          <div className="card overflow-unset mt-9 mb-1">
-            <div className="card-body">
-              <div className="avatar-icon text-center">
-                <img src="https://placehold.it/128x128" alt="Avatar"
-                  className="img-circle img-cover card mb-2 ml-auto mr-auto p-1" />
-              </div>
-              <div className="group">
-                <input type="text" className="form-control" placeholder="Email Address" />
-              </div>
-              <div className="group">
-                <input type="password" className="form-control" placeholder="Password" />
-              </div>
-              <div className="group">
-                <div className="custom-checkbox">
-                  <input type="checkbox" value="remember me" id="rememberMe" />
-                  <label for="rememberMe" className="text-gray">Remember Me</label>
-                </div>
-              </div>
-              <div className="group">
-                <button className="btn primary block btn-lg weight-500" onClick={login}>Login</button>
-              </div>
-            </div>
-          </div>
-          <div className="text-center weight-600 text-gray">
-            <a href="" className="text-gray">Sign Up</a> · <a href="" className="text-gray">Forgot Password</a> · <a href=""
-              className="text-gray">Need Help?</a>
-          </div>
-        </div>
-      </section>
+<div className="card bg-light mb-3" style={{maxWidth: '18rem;'}}>
+  <div className="card-header">Header</div>
+  <div className="card-body">
+    <h5 className="card-title">Light card title</h5>
+    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
+<div className="card text-white bg-dark mb-3 shadow-lg rounded" style={{maxWidth: '18rem;'}}>
+  <div className="card-header">Header</div>
+  <div className="card-body">
+    <h5 className="card-title">Dark card title</h5>
+    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+</div>
     </div>
   );
 }
