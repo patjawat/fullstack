@@ -7,7 +7,7 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
-import {LOGIN} from "./queries";
+import { LOGIN } from "./queries";
 import { useMutation } from "@apollo/react-hooks";
 import Header from './components/header'
 import About from './components/about'
@@ -15,6 +15,8 @@ import Book from './pages/book'
 import User from './pages/users/user'
 import Patient from './pages/patient/patient'
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFingerprint } from '@fortawesome/free-solid-svg-icons'
 
 export const AuthContext = React.createContext(); // added this
 const initialState = {
@@ -51,37 +53,37 @@ export default function App() {
   const [state, dispatch] = React.useReducer(reducer, initialState);
   return (
     <AuthContext.Provider
-    value={{
-      state,
-      dispatch
-    }}
-  >
- <div className="containers">
+      value={{
+        state,
+        dispatch
+      }}
+    >
+      <div className="containers">
         <div className="app-wrapperx">
 
-       
-    <Router>
 
-      <AuthButton />
-      <div>
-        <Switch>
-          <PrivateRoute path="/about">
-            <About />
-          </PrivateRoute>
-          <PrivateRoute path="/users">
-            <User />
-          </PrivateRoute>
-          <PrivateRoute path="/book">
-            <Book />
-          </PrivateRoute>
-          <PrivateRoute path="/patient">
-            <Patient />
-          </PrivateRoute>
-        </Switch>
+          <Router>
+
+            <AuthButton />
+            <div>
+              <Switch>
+                <PrivateRoute path="/about">
+                  <About />
+                </PrivateRoute>
+                <PrivateRoute path="/users">
+                  <User />
+                </PrivateRoute>
+                <PrivateRoute path="/book">
+                  <Book />
+                </PrivateRoute>
+                <PrivateRoute path="/patient">
+                  <Patient />
+                </PrivateRoute>
+              </Switch>
+            </div>
+          </Router>
+        </div>
       </div>
-    </Router>
-    </div>
-    </div>
     </AuthContext.Provider>
   );
 }
@@ -147,20 +149,28 @@ function LoginPage() {
 
   return (
     <div>
-<div className="card bg-light mb-3" style={{maxWidth: '18rem;'}}>
-  <div className="card-header">Header</div>
-  <div className="card-body">
-    <h5 className="card-title">Light card title</h5>
-    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
-<div className="card text-white bg-dark mb-3 shadow-lg rounded" style={{maxWidth: '18rem;'}}>
-  <div className="card-header">Header</div>
-  <div className="card-body">
-    <h5 className="card-title">Dark card title</h5>
-    <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-</div>
+      <div className="card text-white bg-dark shadow-lg rounded wrapper-box" style={{ width:'30rem',maxWidth: '18rem;' }}>
+        <div className="card-header">
+          <h5><FontAwesomeIcon icon={faFingerprint} /> Authentication</h5>
+          </div>
+        <div className="card-body">
+    <div class="form-group">
+      <label for="email">Username:</label>
+      <input type="email" class="form-dark" id="email" placeholder="Enter email" name="email"/>
+    </div>
+    <div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-dark" id="pwd" placeholder="Enter password" name="pswd" />
+    </div>
+    <div class="form-group form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox" name="remember" /> Remember me
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary" onClick={login}>Submit</button>
+
+        </div>
+      </div>
     </div>
   );
 }
