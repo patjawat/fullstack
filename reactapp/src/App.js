@@ -63,9 +63,8 @@ export default function App() {
 
 
           <Router>
-
             <AuthButton />
-            <div>
+            <div className="container mt-5 p-5 bg-white">
               <Switch>
                 <PrivateRoute path="/about">
                   <About />
@@ -89,7 +88,7 @@ export default function App() {
 }
 
 const fakeAuth = {
-  isAuthenticated: false,
+  isAuthenticated: true,
   authenticate(cb) {
     fakeAuth.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
@@ -104,8 +103,8 @@ function AuthButton() {
   let history = useHistory();
 
   return fakeAuth.isAuthenticated ? (
-    // <Header />
     <>
+    <Header />
     </>
   ) : (
       <LoginPage />
