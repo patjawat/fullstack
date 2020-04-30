@@ -1,6 +1,6 @@
 import React,{useContext} from 'react'
 import {BookContext} from '../contexts/BookContext'
-export default function bookList() {
+const BookList = () => {
     const {count} = useContext(BookContext)
     return (
         <div>
@@ -8,3 +8,4 @@ export default function bookList() {
         </div>
     )
 }
+export default BookList;
