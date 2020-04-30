@@ -2,8 +2,10 @@ import React from 'react';
 import {
   Link
 } from "react-router-dom";
+import {CounterContext} from '../hooks'
 
-const Header = (props) => {
+const Header = () => {
+  const {count} = React.useContext(CounterContext);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -21,7 +23,7 @@ const Header = (props) => {
       <Link className="nav-link" to="/users">User</Link>
       </li>
       <li className="nav-item">
-      <Link className="nav-link" to="/book">Book</Link>
+      <Link className="nav-link" to="/cart">Cart</Link>
       </li>
       <li className="nav-item">
       <Link className="nav-link" to="/patient">Patient</Link>
@@ -43,7 +45,7 @@ const Header = (props) => {
     </ul>
     <form className="form-inline my-2 my-lg-0">
       <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search {count}</button>
     </form>
   </div>
 </nav>
