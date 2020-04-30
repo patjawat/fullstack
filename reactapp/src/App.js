@@ -10,80 +10,44 @@ import {
 import { LOGIN } from "./queries";
 import { useMutation } from "@apollo/react-hooks";
 import Header from './components/header'
-import About from './components/about'
-import Book from './pages/book'
+import Cart from './components/cart'
 import User from './pages/users/user'
 import Patient from './pages/patient/patient'
+import Home from '././components/home'
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFingerprint } from '@fortawesome/free-solid-svg-icons'
-
-export const AuthContext = React.createContext(); // added this
-const initialState = {
-  isAuthenticated: false,
-  user: null,
-  token: null,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "LOGIN":
-      localStorage.setItem("user", JSON.stringify(action.payload.user));
-      localStorage.setItem("token", JSON.stringify(action.payload.token));
-      return {
-        ...state,
-        isAuthenticated: true,
-        user: action.payload.user,
-        token: action.payload.token
-      };
-    case "LOGOUT":
-      localStorage.clear();
-      return {
-        ...state,
-        isAuthenticated: false,
-        user: null
-      };
-    default:
-      return state;
-  }
-};
-
+import {CounterProvider} from './hooks'
 
 export default function App() {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
   return (
-    <AuthContext.Provider
-      value={{
-        state,
-        dispatch
-      }}
-    >
+<CounterProvider>
+
       <div className="containers">
         <div className="app-wrapperx">
-
-
           <Router>
             <AuthButton />
             <div className="container mt-5 p-5 bg-white">
               <Switch>
-                <PrivateRoute path="/about">
-                  <About />
+                <PrivateRoute path="/cart">
+                  <Cart />
                 </PrivateRoute>
                 <PrivateRoute path="/users">
                   <User />
                 </PrivateRoute>
-                <PrivateRoute path="/book">
-                  <Book />
-                </PrivateRoute>
                 <PrivateRoute path="/patient">
                   <Patient />
+                </PrivateRoute>
+                <PrivateRoute path="/">
+                  <Home />
                 </PrivateRoute>
               </Switch>
             </div>
           </Router>
         </div>
       </div>
-    </AuthContext.Provider>
+</CounterProvider>
+
   );
 }
 
@@ -101,7 +65,6 @@ const fakeAuth = {
 
 function AuthButton() {
   let history = useHistory();
-
   return fakeAuth.isAuthenticated ? (
     <>
     <Header />
@@ -131,21 +94,7 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
-function LoginPage() {
-  let history = useHistory();
-  let location = useLocation();
-  const [authentication] = useMutation(LOGIN);
-
-  let { from } = location.state || { from: { pathname: "/" } };
-  let login = () => {
-    fakeAuth.authenticate(() => {
-      history.replace(from);
-    });
-    // authentication({ variables:{username:'admin',password:'112233'}}).then(res => {
-    //   console.log(res.data.login)
-    // });
-  };
-
+const  LoginPage = ()=> {
   return (
     <div>
       <div className="card text-white bg-dark shadow-lg rounded wrapper-box" style={{ width:'30rem',maxWidth: '18rem;' }}>
@@ -166,7 +115,7 @@ function LoginPage() {
         <input class="form-check-input" type="checkbox" name="remember" /> Remember me
       </label>
     </div>
-    <button type="submit" class="btn btn-primary" onClick={login}>Submit</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 
         </div>
       </div>

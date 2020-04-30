@@ -1,1 +1,1 @@
-export * from './patientProvider'
+export * from './globalState'
