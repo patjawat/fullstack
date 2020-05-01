@@ -7,12 +7,9 @@ import {
   useHistory,
   useLocation
 } from "react-router-dom";
-import { LOGIN } from "./queries";
 import { useMutation } from "@apollo/react-hooks";
-import Header from './components/header'
+import Header from './components/Header'
 import Cart from './components/cart'
-import User from './pages/users/user'
-import Patient from './pages/patient/patient'
 import Home from '././components/home'
 import './App.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,12 +28,6 @@ export default function App() {
               <Switch>
                 <PrivateRoute path="/cart">
                   <Cart />
-                </PrivateRoute>
-                <PrivateRoute path="/users">
-                  <User />
-                </PrivateRoute>
-                <PrivateRoute path="/patient">
-                  <Patient />
                 </PrivateRoute>
                 <PrivateRoute path="/">
                   <Home />
