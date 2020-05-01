@@ -1,78 +1,27 @@
-import React, {useContext} from 'react';
-import { useSetState } from 'react-use';
+import React from "react";
+import "../App.css";
+import { AuthContext } from "../context/Globalcontext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFingerprint } from '@fortawesome/free-solid-svg-icons'
+const LoginPage = () => {
+  const { state, login } = React.useContext(AuthContext);
 
-import { AuthContext } from '../context/Auth.context.js';
-
-const initialState = {
-  email: '',
-  password: ''
-}
-
-const Login = () => {
-  const { state: ContextState, login } = useContext(AuthContext);
-  const {
-    isLoginPending,
-    isLoggedIn,
-    loginError
-  } = ContextState;
-  const [state, setState] = useSetState(initialState);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const { email, password } = state;
-    login(email, password);
-    setState({
-      email: '',
-      password: ''
-    });
-  }
-    
   return (
-    <form name="loginForm" onSubmit={onSubmit}>
-
-      <div className="row">
-
-        <div className="col-sm-3 col-md-6">
-          <label htmlFor="email">Username</label>
+    <div className="containers">
+      <div className="card text-white bg-dark mb-3 shadow-lg rounded">
+        <div className="card-header">
+            <h4><FontAwesomeIcon icon={faFingerprint}/>  Authentication</h4>
+            </div>
+        <div className="card-body">
+          <h5 className="card-title">Dark card title</h5>
+          <p className="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+            <button onClick={login}>Login</button>
+          </p>
         </div>
-        
-        <div className="col-sm-9 col-md-6">
-          <input 
-            type="text" 
-            name="email" 
-            onChange={e => setState({email: e.target.value})} 
-            value={state.email} 
-            placeholder="admin" 
-          />
-        </div>
-
-        <div className="col-sm-3 col-md-6">
-          <label htmlFor="password">Password</label>
-        </div>
-        <div className="col-sm-9 col-md-6">
-            <input 
-              type="password" 
-              name="password" 
-              onChange={e => setState({password: e.target.value})} 
-              value={state.password} 
-              placeholder="admin" 
-            />
-        </div>
-
-        <div className="col-sm-3 col-md-6">
-        </div>
-        <div className="col-sm-9 col-md-6">
-          <input className="primary" type="submit" value="Login" />
-        </div>
-        
       </div>
-
-      { isLoginPending && <div>Please wait...</div> }
-      { isLoggedIn && <div>Success.</div> }
-      { loginError && <div>{loginError.message}</div> }
-    </form>
-  )
-}
-
-
-export default Login;
+    </div>
+  );
+};
+export default LoginPage;
