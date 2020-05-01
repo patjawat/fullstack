@@ -1,22 +1,3 @@
-<<<<<<< HEAD
-import React,{useContext} from "react";
-import "./App.css";
-import {ShopProvider,ShopContext} from './hooks/cart'
-
-const App = () => {
-  const { count } = useContext(ShopContext)
-  
-  return (
-    <ShopProvider>
-    <div className="App">
-      react Hook :
-     
-      <hr/>
-      <h1>{JSON.stringify(count)}</h1>
-    </div>
-          
-    </ShopProvider>
-=======
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -67,13 +48,21 @@ export default function App() {
       </div>
 </CounterProvider>
 
->>>>>>> 5403c85cc68a61378f489525634d710f8eedbcff
   );
+}
+
+const fakeAuth = {
+  isAuthenticated: true,
+  authenticate(cb) {
+    fakeAuth.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signout(cb) {
+    fakeAuth.isAuthenticated = false;
+    setTimeout(cb, 100);
+  }
 };
 
-<<<<<<< HEAD
-export default App;
-=======
 function AuthButton() {
   let history = useHistory();
   return fakeAuth.isAuthenticated ? (
@@ -133,4 +122,3 @@ const  LoginPage = ()=> {
     </div>
   );
 }
->>>>>>> 5403c85cc68a61378f489525634d710f8eedbcff
