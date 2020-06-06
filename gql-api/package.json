@@ -7,7 +7,7 @@
     "dev": "nodemon src/app.js -e js, graphql --exec babel-node"
   },
   "dependencies": {
-    "apollo-server": "^2.4.8",
+    "apollo-server": "^2.14.2",
     "bcrypt": "^3.0.5",
     "graphql": "^14.1.1",
     "jsonwebtoken": "^8.5.1",
